@@ -1,0 +1,19 @@
+# Python environment and caches
+_env/
+__pycache__/
+*.pyc
+
+# frontend/results/ is NOT ignored on purpose: everyone sees the finished
+# images and animations right away (e.g. on a static host).
+# The build state (source hashes) stays out, so a fresh clone rebuilds everything
+# once and everyone gets the newest version of every graphic.
+backend/.build_state.json
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

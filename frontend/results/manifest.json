@@ -1,0 +1,20 @@
+{
+  "categories": [
+    {
+      "id": "streak",
+      "title": "Streak",
+      "items": [
+        {
+          "title": "Streak Flame",
+          "kind": "image",
+          "file": "results/streak/streak_flame.png"
+        },
+        {
+          "title": "Streak Flame",
+          "kind": "lottie",
+          "file": "results/streak/streak_flame.json"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Images &amp; Animations</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Images &amp; Animations</h1>
+    <nav id="filters" class="chips" aria-label="Categories"></nav>
+  </header>
+
+  <main id="gallery"></main>
+
+  <div id="lightbox" class="lightbox" hidden>
+    <button class="close" id="close" aria-label="Close">&times;</button>
+    <figure>
+      <div id="stage" class="stage"></div>
+      <figcaption id="caption"></figcaption>
+    </figure>
+  </div>
+
+  <script src="vendor/lottie.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
