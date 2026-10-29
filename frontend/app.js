@@ -3,9 +3,14 @@ const filterElement = document.getElementById("filters");
 const lightboxElement = document.getElementById("lightbox");
 const lightboxStageElement = document.getElementById("stage");
 const lightboxCaptionElement = document.getElementById("caption");
+const lightboxDownloadElement = document.getElementById("lightbox-download");
 
 const KIND_LABELS = { image: "Image", lottie: "Lottie" };
 const MANIFEST_URL = "results/manifest.json";
+const ALL_CATEGORIES_ID = null;
+const KEY_ENTER = "Enter";
+const KEY_SPACE = " ";
+const KEY_ESCAPE = "Escape";
 
 let lightboxAnimation = null;
 
@@ -14,76 +19,125 @@ function loadGallery() {
     .then(response => response.json())
     .then(({ categories }) => {
       renderCategoryFilters(categories);
-      renderGallery(categories, null);
+      renderGallery({ categories, selectedCategoryId: ALL_CATEGORIES_ID });
     })
-    .catch(() => {
-      galleryElement.innerHTML = '<p class="empty">Could not load the manifest.</p>';
-    });
+    .catch(() => renderEmptyMessage("Could not load the manifest."));
 
-  document.getElementById("close").addEventListener("click", closeLightbox);
-  lightboxElement.addEventListener("click", event => {
-    if (event.target === lightboxElement) closeLightbox();
-  });
-  document.addEventListener("keydown", event => {
-    if (event.key === "Escape" && !lightboxElement.hidden) closeLightbox();
-  });
+  registerLightboxListeners();
 }
 
 function renderCategoryFilters(categories) {
-  const options = [{ id: null, title: "All" }, ...categories];
-  let selectedId = null;
+  const filterOptions = [{ id: ALL_CATEGORIES_ID, title: "All" }, ...categories];
 
-  filterElement.replaceChildren(...options.map(option => {
-    const chip = document.createElement("button");
-    chip.className = "chip";
-    chip.textContent = option.title;
-    chip.setAttribute("aria-pressed", String(option.id === selectedId));
+  const chips = filterOptions.map(filterOption => {
+    const chip = createChip(filterOption.title);
 
     chip.addEventListener("click", () => {
-      selectedId = option.id;
-      filterElement.querySelectorAll(".chip").forEach((otherChip, index) => {
-        otherChip.setAttribute("aria-pressed", String(options[index].id === selectedId));
-      });
-      renderGallery(categories, selectedId);
+      markSelectedChip({ chips, selectedChip: chip });
+      renderGallery({ categories, selectedCategoryId: filterOption.id });
     });
 
     return chip;
-  }));
+  });
+
+  markSelectedChip({ chips, selectedChip: chips[0] });
+  filterElement.replaceChildren(...chips);
 }
 
-function renderGallery(categories, selectedCategoryId) {
-  galleryElement.replaceChildren();
+function createChip(title) {
+  const chip = document.createElement("button");
+  chip.className = "chip";
+  chip.textContent = title;
+  return chip;
+}
+
+function markSelectedChip({ chips, selectedChip }) {
+  for (const chip of chips) {
+    chip.setAttribute("aria-pressed", String(chip === selectedChip));
+  }
+}
+
+function renderGallery({ categories, selectedCategoryId }) {
   const visibleCategories = categories.filter(
-    category => !selectedCategoryId || category.id === selectedCategoryId
+    category => selectedCategoryId === ALL_CATEGORIES_ID || category.id === selectedCategoryId
   );
 
   if (!visibleCategories.length) {
-    galleryElement.innerHTML = '<p class="empty">No content yet.</p>';
+    renderEmptyMessage("No content yet.");
     return;
   }
 
-  for (const category of visibleCategories) {
-    const section = document.createElement("section");
-    section.className = "category";
-    section.innerHTML = '<h2></h2><div class="grid"></div>';
-    section.querySelector("h2").textContent = category.title;
-    section.querySelector(".grid").append(...category.items.map(createCard));
-    galleryElement.append(section);
-  }
+  galleryElement.replaceChildren(...visibleCategories.map(createCategorySection));
+}
+
+function renderEmptyMessage(message) {
+  const messageElement = document.createElement("p");
+  messageElement.className = "empty";
+  messageElement.textContent = message;
+  galleryElement.replaceChildren(messageElement);
+}
+
+function createCategorySection(category) {
+  const section = document.createElement("section");
+  section.className = "category";
+  section.innerHTML = '<h2></h2><div class="grid"></div>';
+  section.querySelector("h2").textContent = category.title;
+  section.querySelector(".grid").append(...category.items.map(createCard));
+  return section;
 }
 
 function createCard(item) {
-  const card = document.createElement("button");
+  // A div, because a download link inside a button is invalid HTML.
+  const card = document.createElement("div");
   card.className = "card";
+  card.tabIndex = 0;
+  card.setAttribute("role", "button");
   card.innerHTML = `<div class="preview"></div>
-    <div class="meta"><span class="title"></span><span class="badge"></span></div>`;
-  card.querySelector(".title").textContent = item.title;
-  card.querySelector(".badge").textContent = KIND_LABELS[item.kind] ?? item.kind;
+    <div class="meta">
+      <span class="title"></span>
+      <span class="badge"></span>
+      <a class="card-download" aria-label="Download">&#8681;</a>
+    </div>`;
 
+  card.querySelector(".title").textContent = item.title;
+  card.querySelector(".badge").textContent = getKindLabel(item);
   mountMedia(card.querySelector(".preview"), item);
-  card.addEventListener("click", () => openLightbox(item));
+  prepareCardDownload(card, item);
+  registerCardListeners(card, item);
 
   return card;
+}
+
+function getKindLabel(item) {
+  return KIND_LABELS[item.kind] ?? item.kind;
+}
+
+function prepareCardDownload(card, item) {
+  const downloadLink = card.querySelector(".card-download");
+  setDownloadTarget(downloadLink, item);
+
+  // Downloading must not also open the lightbox.
+  downloadLink.addEventListener("click", event => event.stopPropagation());
+}
+
+function setDownloadTarget(linkElement, item) {
+  linkElement.href = item.file;
+  linkElement.download = item.file.split("/").pop();
+  linkElement.title = `Download ${linkElement.download}`;
+}
+
+function registerCardListeners(card, item) {
+  card.addEventListener("click", () => openLightbox(item));
+
+  card.addEventListener("keydown", event => {
+    const isCardFocused = event.target === card;
+    const isOpenKey = event.key === KEY_ENTER || event.key === KEY_SPACE;
+
+    if (isCardFocused && isOpenKey) {
+      event.preventDefault();
+      openLightbox(item);
+    }
+  });
 }
 
 /** Fills the element with the image or a running Lottie animation. Returns the animation, if any. */
@@ -111,9 +165,23 @@ function mountMedia(element, item) {
   });
 }
 
+function registerLightboxListeners() {
+  document.getElementById("close").addEventListener("click", closeLightbox);
+
+  lightboxElement.addEventListener("click", event => {
+    if (event.target === lightboxElement) closeLightbox();
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === KEY_ESCAPE && !lightboxElement.hidden) closeLightbox();
+  });
+}
+
 function openLightbox(item) {
   lightboxAnimation = mountMedia(lightboxStageElement, item);
-  lightboxCaptionElement.textContent = `${item.title} · ${KIND_LABELS[item.kind] ?? item.kind}`;
+  lightboxCaptionElement.textContent = `${item.title} · ${getKindLabel(item)}`;
+  setDownloadTarget(lightboxDownloadElement, item);
+
   lightboxElement.hidden = false;
   document.body.style.overflow = "hidden";
 }
@@ -122,6 +190,7 @@ function closeLightbox() {
   lightboxAnimation?.destroy();
   lightboxAnimation = null;
   lightboxStageElement.replaceChildren();
+
   lightboxElement.hidden = true;
   document.body.style.overflow = "";
 }
