@@ -8,9 +8,7 @@ Everything is generated from scratch by code. No stock assets, no third-party ar
 
 ## Live gallery
 
-See the current library: https://image---lottie-generator.pages.dev
-
-Use Chrome. Firefox is denying the website because of the new Cloudflare certificate.
+See the "about" category of the repo
 
 ## How it works
 
