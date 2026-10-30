@@ -4,13 +4,11 @@ Every prop is flat and has no text. Positions are final pixels. `size` is roughl
 """
 import math
 
-from verb_painter import (
+from painting.flat_painter import build_star_points, rotate_point, sample_curve
+from verbs.verb_painter import (
     build_arc_points,
     build_polyline_points,
-    build_star_points,
     move_point,
-    rotate_point,
-    sample_curve,
     solid,
 )
 
@@ -287,7 +285,7 @@ def draw_gift_box(
 def draw_coin(
     painter,
     center,
-    radius=40,
+    radius=40.0,
 ):
     painter.fill_circle(center=center, radius=radius, shade=solid(GOLD))
     painter.flat_circle(center=center, radius=radius * 0.72, color=(236, 160, 24))

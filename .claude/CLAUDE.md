@@ -8,6 +8,10 @@ Generates images and Lottie animations (backend) and shows them in a dark-mode g
 - `backend/main.py` checks for changes, rebuilds outdated results and starts the frontend server.
 - `backend/build.py` finds all categories automatically. Do not register files there.
 - `backend/<category>/` contains the generator scripts of one category (e.g. `streak/`).
+- Categories with many images (`food/`, `verbs/`) keep one generator script per image in `gen/<theme>/` (e.g. `food/gen/fruits/apple.py`, `verbs/gen/motion/go.py`).
+  Helpers (painter, catalog, runner, `build_config.py`) stay directly in the category folder, never in `gen/`.
+- `backend/painting/` holds the painters that several categories share. Import them as `from painting.flat_painter import ...`.
+  The build sets `PYTHONPATH` to `backend/`, and `pyrightconfig.json` tells the IDE the same.
 - `backend/<category>/build_config.py` registers every generated file of that category as a `BuildTarget`.
 - `frontend/results/<category>/` contains the generated files and the `manifest.json`. Never edit these by hand.
 - `frontend/` is plain HTML, CSS and JS. No framework, no build step, libraries live in `frontend/vendor/`.
@@ -55,4 +59,5 @@ Generates images and Lottie animations (backend) and shows them in a dark-mode g
 
 - Tests: new tests go in a `tests/` folder. If there is none, ask before creating it.
 - Generated outputs are rebuilt through `python backend/main.py` (or `start.py`), not by copying files around.
+- After code changes in `backend/`, run `python typecheck.py` and fix every error it reports.
 - When a generator script changes, check that it still builds. A change to a shared script (e.g. `streak_flame.py`) can affect other outputs.

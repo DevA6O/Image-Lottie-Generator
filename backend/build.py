@@ -7,6 +7,7 @@ To add a new category: create the folder and add a build_config.py. Nothing chan
 """
 import importlib.util
 import json
+import os
 import subprocess
 import sys
 from dataclasses import dataclass, replace
@@ -28,6 +29,10 @@ class BuildCategory:
 def load_build_category(category_dir):
     config_path = category_dir / BUILD_CONFIG_FILE_NAME
     spec = importlib.util.spec_from_file_location(f"{category_dir.name}_build_config", config_path)
+
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Cannot load {config_path}")
+
     config = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(config)
 
@@ -78,12 +83,22 @@ class ResultBuilder:
             return build_state
 
         print(f"[rebuild]     {target.state_key}")
-        subprocess.run([sys.executable, str(target.script_path), *target.arguments], check=True)
+        subprocess.run(
+            [sys.executable, str(target.script_path), *target.arguments],
+            env=self._build_script_environment(),
+            check=True,
+        )
 
         build_state[target.state_key] = source_hash
         self._save_build_state(build_state=build_state)
 
         return build_state
+
+    def _build_script_environment(self):
+        """The scripts import the shared packages (painting, food, verbs) from the backend folder."""
+        search_path = os.pathsep.join(filter(None, [str(BACKEND_DIR), os.environ.get("PYTHONPATH")]))
+
+        return {**os.environ, "PYTHONPATH": search_path}
 
     def _load_build_state(self):
         try:

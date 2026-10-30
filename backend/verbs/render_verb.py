@@ -1,13 +1,12 @@
 """
-Renders one form of one verb. Usage: python render_verb.py <verb key> <form number>
-Form numbers: 0 = infinitive, 1 = past, 2 = past participle.
-Output: <verb>_<form>.png (1024x1024, transparent background) in frontend/results/verbs
+The shared part of every verb script. A verb script draws its scene and then calls
+render_verb_from_command_line, which reads the form number from the command line
+(0 = infinitive, 1 = past, 2 = past participle) and writes <verb>_<form>.png to frontend/results/verbs.
 """
-import importlib
 import sys
 
-from verb_catalog import IRREGULAR_VERBS, build_image_name
-from verb_painter import VerbPainter
+from verbs.verb_catalog import IRREGULAR_VERBS, build_image_name
+from verbs.verb_painter import VerbPainter
 
 
 def find_verb(verb_key):
@@ -16,15 +15,18 @@ def find_verb(verb_key):
 
 def render_verb_form(
     verb_key,
+    paint_scene,
     form,
 ):
     verb = find_verb(verb_key=verb_key)
-    scenes = importlib.import_module(verb.scene_module).SCENES
     painter = VerbPainter()
 
-    scenes[verb.key](painter, form)
+    paint_scene(painter, form)
     painter.save_verb_image(file_name=build_image_name(verb=verb, form=form))
 
 
-if __name__ == "__main__":
-    render_verb_form(verb_key=sys.argv[1], form=int(sys.argv[2]))
+def render_verb_from_command_line(
+    verb_key,
+    paint_scene,
+):
+    render_verb_form(verb_key=verb_key, paint_scene=paint_scene, form=int(sys.argv[1]))

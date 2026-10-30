@@ -6,7 +6,8 @@ Arm and leg angles are screen angles: 0 points down, 90 points right, 180 points
 """
 from dataclasses import dataclass
 
-from verb_painter import build_arc_points, build_direction, rotate_point, sample_curve, solid
+from painting.flat_painter import rotate_point, sample_curve
+from verbs.verb_painter import build_arc_points, build_direction, solid
 
 SKIN = (250, 205, 160)
 HAIR = (96, 60, 42)
@@ -17,6 +18,8 @@ PANTS = (70, 84, 130)
 SHOE = (60, 52, 70)
 EYE = (50, 38, 48)
 EYE_WHITE = (252, 252, 255)
+PARTNER_SHIRT = (190, 120, 220)
+PARTNER_HAIR = (50, 50, 64)
 MOUTH = (150, 50, 62)
 CHEEK = (248, 150, 140)
 
@@ -76,6 +79,7 @@ class Pose:
 
 
 CHEER_POSE = Pose(left_arm=(-150, 0), right_arm=(150, 0), eyes="happy", mouth="grin")
+STAND_HIP = (512, 620)
 
 
 @dataclass(frozen=True)
@@ -368,3 +372,11 @@ class Character:
         length = (length_x ** 2 + length_y ** 2) ** 0.5
 
         return (length_x / length, length_y / length)
+
+
+def build_partner(
+    hip,
+    scale=1.0,
+):
+    """The second character in scenes with two people: a purple shirt and dark hair."""
+    return Character(hip=hip, scale=scale, shirt=PARTNER_SHIRT, hair=PARTNER_HAIR)

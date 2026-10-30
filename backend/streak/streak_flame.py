@@ -101,7 +101,7 @@ class FlameRenderer:
         canvas[..., :3][mask] = colors[mask].astype(np.uint8)
         canvas[..., 3][mask] = 255
 
-        return Image.fromarray(canvas, "RGBA").resize((SIZE, SIZE), Image.LANCZOS)
+        return Image.fromarray(canvas, "RGBA").resize((SIZE, SIZE), Image.Resampling.LANCZOS)
 
     def _render_outer_layer(self):
         body_mask, _ = self._build_flame_mask(

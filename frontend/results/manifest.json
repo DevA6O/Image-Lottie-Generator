@@ -10,29 +10,9 @@
           "file": "results/food/bread.png"
         },
         {
-          "title": "Cheese",
-          "kind": "image",
-          "file": "results/food/cheese.png"
-        },
-        {
-          "title": "Butter",
-          "kind": "image",
-          "file": "results/food/butter.png"
-        },
-        {
-          "title": "Pizza",
-          "kind": "image",
-          "file": "results/food/pizza.png"
-        },
-        {
           "title": "Toast",
           "kind": "image",
           "file": "results/food/toast.png"
-        },
-        {
-          "title": "Olives",
-          "kind": "image",
-          "file": "results/food/olives.png"
         },
         {
           "title": "Croissant",
@@ -75,9 +55,14 @@
           "file": "results/food/pancakes.png"
         },
         {
-          "title": "Fried Egg",
+          "title": "Cheese",
           "kind": "image",
-          "file": "results/food/fried_egg.png"
+          "file": "results/food/cheese.png"
+        },
+        {
+          "title": "Butter",
+          "kind": "image",
+          "file": "results/food/butter.png"
         },
         {
           "title": "Egg",
@@ -85,19 +70,14 @@
           "file": "results/food/egg.png"
         },
         {
-          "title": "Bacon",
+          "title": "Fried Egg",
           "kind": "image",
-          "file": "results/food/bacon.png"
+          "file": "results/food/fried_egg.png"
         },
         {
-          "title": "Sausage",
+          "title": "Pizza",
           "kind": "image",
-          "file": "results/food/sausage.png"
-        },
-        {
-          "title": "Drumstick",
-          "kind": "image",
-          "file": "results/food/drumstick.png"
+          "file": "results/food/pizza.png"
         },
         {
           "title": "Burger",
@@ -123,6 +103,26 @@
           "title": "Sandwich",
           "kind": "image",
           "file": "results/food/sandwich.png"
+        },
+        {
+          "title": "Popcorn",
+          "kind": "image",
+          "file": "results/food/popcorn.png"
+        },
+        {
+          "title": "Bacon",
+          "kind": "image",
+          "file": "results/food/bacon.png"
+        },
+        {
+          "title": "Sausage",
+          "kind": "image",
+          "file": "results/food/sausage.png"
+        },
+        {
+          "title": "Drumstick",
+          "kind": "image",
+          "file": "results/food/drumstick.png"
         },
         {
           "title": "Apple",
@@ -175,6 +175,11 @@
           "file": "results/food/pineapple.png"
         },
         {
+          "title": "Avocado",
+          "kind": "image",
+          "file": "results/food/avocado.png"
+        },
+        {
           "title": "Tomato",
           "kind": "image",
           "file": "results/food/tomato.png"
@@ -205,11 +210,6 @@
           "file": "results/food/mushroom.png"
         },
         {
-          "title": "Avocado",
-          "kind": "image",
-          "file": "results/food/avocado.png"
-        },
-        {
           "title": "Bell Pepper",
           "kind": "image",
           "file": "results/food/bell_pepper.png"
@@ -235,14 +235,14 @@
           "file": "results/food/cucumber.png"
         },
         {
+          "title": "Olives",
+          "kind": "image",
+          "file": "results/food/olives.png"
+        },
+        {
           "title": "Peanut",
           "kind": "image",
           "file": "results/food/peanut.png"
-        },
-        {
-          "title": "Popcorn",
-          "kind": "image",
-          "file": "results/food/popcorn.png"
         },
         {
           "title": "Chocolate",

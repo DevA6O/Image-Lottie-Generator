@@ -36,7 +36,7 @@ class StarPainter:
         self._paint_gold(mask=self._build_polygon_mask(outline=clip_to_left_half(outline)))
 
     def to_image(self):
-        return self._canvas.resize((CANVAS_SIZE, CANVAS_SIZE), Image.LANCZOS)
+        return self._canvas.resize((CANVAS_SIZE, CANVAS_SIZE), Image.Resampling.LANCZOS)
 
     def _build_gold_gradient(self):
         """Vertical gold gradient. It spans the star from its top tip to its bottom."""

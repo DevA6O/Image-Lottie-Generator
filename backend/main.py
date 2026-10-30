@@ -28,7 +28,7 @@ class FrontendRequestHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Cache-Control", "no-store")   # Rebuilt files show up immediately
         super().end_headers()
 
-    def log_message(self, *arguments):
+    def log_message(self, format, *arguments):
         pass
 
 

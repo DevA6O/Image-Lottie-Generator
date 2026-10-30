@@ -1,15 +1,20 @@
-import sys
-from pathlib import Path
-
 from build_target import BuildTarget
-
-sys.path.append(str(Path(__file__).resolve().parent))   # The build loads this file by path, so its folder is not importable yet
-
-from verb_catalog import FORM_FILE_NAMES, build_image_name, build_image_title, find_built_verbs
+from verbs.verb_catalog import FORM_FILE_NAMES, build_image_name, build_image_title, find_built_verbs
 
 CATEGORY_TITLE = "Irregular Verbs"
 
-SHARED_SOURCES = ("verb_painter.py", "character.py", "props.py", "tense.py", "verb_catalog.py")
+# Helper files of this category and the shared painter. A change in one of them rebuilds every image.
+SHARED_SOURCES = (
+    "verb_painter.py",
+    "character.py",
+    "poses.py",
+    "props.py",
+    "tense.py",
+    "verb_catalog.py",
+    "render_verb.py",
+    "../painting/layer_painter.py",
+    "../painting/flat_painter.py",
+)
 
 
 def build_verb_targets():
@@ -21,10 +26,10 @@ def build_verb_targets():
                 BuildTarget(
                     title=build_image_title(verb=verb, form=form),
                     kind="image",
-                    script="render_verb.py",
+                    script=verb.script,
                     output=build_image_name(verb=verb, form=form),
-                    extra_sources=(*SHARED_SOURCES, f"{verb.scene_module}.py"),
-                    arguments=(verb.key, str(form)),
+                    extra_sources=SHARED_SOURCES,
+                    arguments=(str(form),),
                 )
             )
 

@@ -1,17 +1,12 @@
 """
-Painter for the verb images. It reuses the food painter (flat shapes with a darker crescent)
-and adds shortcuts for flat details, arcs and rings.
+Painter for the verb images: the flat painter, plus shortcuts for flat details, arcs and rings.
 """
 import math
-import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "food"))
+from painting.flat_painter import FlatPainter
 
-from food_painter import FoodPainter, build_star_points, rotate_point, sample_curve  # noqa: E402
-from layer_painter import OUT_DIR as FOOD_OUT_DIR  # noqa: E402
-
-VERB_OUT_DIR = FOOD_OUT_DIR.parent / "verbs"
+VERB_OUT_DIR = Path(__file__).resolve().parents[2] / "frontend" / "results" / "verbs"
 ARC_POINT_COUNT = 40
 POLYLINE_STEPS_PER_SEGMENT = 12
 
@@ -69,7 +64,7 @@ def move_point(
     return (point[0] + distance * math.cos(radians), point[1] + distance * math.sin(radians))
 
 
-class VerbPainter(FoodPainter):
+class VerbPainter(FlatPainter):
     """Shapes for the verb images. flat_* methods paint one solid color without a crescent (for small details)."""
 
     def save_verb_image(self, file_name):

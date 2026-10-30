@@ -4,7 +4,7 @@ The three verb forms. A form is never written as text:
 - past: the action at a moment in the past, always with a clock
 - past participle: the result after the action
 """
-from props import draw_clock
+from verbs.props import draw_clock
 
 INFINITIVE = 0
 PAST = 1
