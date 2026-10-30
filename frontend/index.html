@@ -19,13 +19,35 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="top">
-    <h1>Images &amp; Animations</h1>
-    <nav id="filters" class="chips" aria-label="Categories"></nav>
-    <button id="theme-toggle" class="theme-toggle" type="button"></button>
-  </header>
+  <div class="app">
+    <aside class="sidebar" aria-label="Main navigation">
+      <div class="brand">
+        <span class="brand-logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z"/></svg>
+        </span>
+        <span class="brand-name">Assets<small>Images &amp; Animations</small></span>
+      </div>
 
-  <main id="gallery"></main>
+      <p class="nav-label">Menu</p>
+      <nav id="category-nav" class="nav" aria-label="Categories"></nav>
+    </aside>
+
+    <div class="content">
+      <header class="topbar">
+        <label class="search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+          <input id="search" type="search" placeholder="Search images and animations…" autocomplete="off" aria-label="Search">
+          <kbd>/</kbd>
+        </label>
+        <button id="theme-toggle" class="icon-button" type="button"></button>
+      </header>
+
+      <main id="gallery">
+        <div id="stats" class="stats"></div>
+        <div id="sections"></div>
+      </main>
+    </div>
+  </div>
 
   <div id="lightbox" class="lightbox" hidden>
     <button class="close" id="close" aria-label="Close">&times;</button>

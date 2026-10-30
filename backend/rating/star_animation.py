@@ -3,10 +3,10 @@ Star Lottie animations (JSON), drawn as vector shapes (no images).
 Used by full_star_lottie.py and half_star_lottie.py.
 
 A star appears, holds for a moment and leaves again:
-  - Full star:  spins in one full turn with a bounce, then a ring and a burst of sparkles.
+  - Full star:  spins in one full turn with a bounce, then a burst of mini stars and sparkles.
   - Half star:  flips in like a coin and slides up. Then the gold half fills in from the
-                left (layer mask), followed by a ring and sparkles.
-  - Both stars: soft glow, gentle breathing, several twinkles and a spinning exit.
+                left (layer mask), followed by mini stars and sparkles.
+  - Both stars: gentle breathing, several twinkles and a spinning exit.
 
 Every value has a keyframe on EVERY frame (linear interpolation), so the easing is
 calculated here and the motion is smooth in every player. The loop is seamless,
@@ -50,18 +50,13 @@ BOB_PIXELS = 6.0
 EXIT_SPIN_DEGREES = 160.0
 OVERSHOOT = 1.70158         # Strength of the bounce in ease_out_back
 
-GLOW_RADIUS_RATIO = 1.35
-GLOW_COLOR = (255, 200, 60)
-GLOW_EDGE_ALPHA = 0.5
-GLOW_PULSE_AMPLITUDE = 0.25
-
-RING_RADIUS_RATIO = 0.9
-RING_WIDTH = 7.0
-RING_FRAMES = 40
-RING_START_SCALE = 0.6
-RING_END_SCALE = 1.2
-RING_PEAK_OPACITY = 80
-RING_COLOR = (255, 226, 130)
+MINI_STAR_COLOR = (255, 196, 40)
+MINI_STAR_COUNT = 12
+MINI_STAR_SIZE = 150       # Percent of the base mini star radius
+MINI_STAR_FRAMES = 60
+MINI_STAR_STAGGER_FRAMES = 1
+MINI_STAR_DISTANCE_RATIO = 1.7   # How far the mini stars fly, relative to the star radius
+MINI_STAR_SPIN_DEGREES = 220.0
 
 SPARKLE_COLOR = (255, 247, 214)
 SPARKLE_RADIUS = 26.0
@@ -165,6 +160,19 @@ def build_sparkle_points():
     return points
 
 
+def build_mini_star_points():
+    """Small five-point star with sharp tips, used for the burst around the big star."""
+    points = []
+
+    for index in range(10):
+        is_tip = index % 2 == 0
+        radius = SPARKLE_RADIUS if is_tip else SPARKLE_RADIUS * 0.45
+        angle = -math.pi / 2 + index * math.pi / 5
+        points.append((radius * math.cos(angle), radius * math.sin(angle)))
+
+    return points
+
+
 def build_shape_group(
     shape_name,
     shape_item,
@@ -183,22 +191,9 @@ def build_path_item(points):
     return {"ty": "sh", "nm": "path", "ks": build_static_property(build_polygon_path(points=points))}
 
 
-def build_circle_item(radius):
-    return {"ty": "el", "nm": "circle", "p": build_static_property([0, 0]),
-            "s": build_static_property([2 * radius, 2 * radius])}
-
-
 def build_solid_fill(color):
     return {"ty": "fl", "nm": "fill", "c": build_static_property(to_lottie_color(color)),
             "o": build_static_property(100), "r": 1}
-
-
-def build_stroke(
-    color,
-    width,
-):
-    return {"ty": "st", "nm": "stroke", "c": build_static_property(to_lottie_color(color)),
-            "o": build_static_property(100), "w": build_static_property(width), "lc": 2, "lj": 2}
 
 
 def build_gradient_fill(
@@ -252,7 +247,7 @@ def collect_states(build_frame_state):
 
 
 class Sparkle:
-    """A four-point sparkle that grows, spins and shrinks once per loop."""
+    """A small shape (sparkle or mini star) that grows, spins and shrinks once per loop."""
 
     def __init__(
         self,
@@ -263,8 +258,12 @@ class Sparkle:
         life_frames,
         size,
         spin_degrees,
+        points,
+        color,
     ):
         self._name = name
+        self._points = points
+        self._color = color
         self._start = start
         self._end = end
         self._start_frame = start_frame
@@ -279,8 +278,8 @@ class Sparkle:
             layer_name=self._name,
             shapes=[build_shape_group(
                 shape_name="sparkle",
-                shape_item=build_path_item(points=build_sparkle_points()),
-                paint_item=build_solid_fill(color=SPARKLE_COLOR),
+                shape_item=build_path_item(points=self._points),
+                paint_item=build_solid_fill(color=self._color),
             )],
             position=build_animated_property(positions),
             rotation=build_animated_property(rotations),
@@ -317,13 +316,13 @@ class StarSpec:
     entry_spin_degrees: float   # Rotation it arrives with (turns to 0)
     does_flip: bool             # True: turns around its vertical axis like a coin
     entry_slide_pixels: float   # How far below its place it starts
-    burst_frame: int            # Frame of the ring and the sparkle burst
+    burst_frame: int            # Frame of the mini star and sparkle burst
     sparkle_count: int
     twinkles: tuple             # ((frame, (x, y)), ...): when and where (relative to the star center) it twinkles
 
 
 class AnimatedStar:
-    """One star with its glow, ring, sparkles and (for the half star) the fill reveal."""
+    """One star with its mini stars, sparkles and (for the half star) the fill reveal."""
 
     def __init__(self, spec):
         self._spec = spec
@@ -333,13 +332,10 @@ class AnimatedStar:
     def build_layers(self):
         """Returns the layers from top to bottom."""
         layers = self._build_sparkle_layers()
-        layers.append(self._build_ring_layer())
         layers.append(self._build_gold_layer())
 
         if self._spec.is_half:
             layers.append(self._build_empty_layer())
-
-        layers.append(self._build_glow_layer())
 
         return layers
 
@@ -465,71 +461,6 @@ class AnimatedStar:
             "o": [[0, 0]] * 4,
         }
 
-    def _build_glow_state(self, frame):
-        timeline = self._build_timeline(frame=frame)
-        frame_after_start = frame
-        visibility = smoothstep((frame_after_start - APPEAR_FRAMES / 2) / 30) * (1 - smoothstep(timeline.exit_progress))
-        pulse = 1 - GLOW_PULSE_AMPLITUDE + GLOW_PULSE_AMPLITUDE * math.sin(timeline.idle_phase)
-        size = (1 + 0.06 * math.sin(timeline.idle_phase)) * (1 - ease_in_cubic(timeline.exit_progress))
-
-        return (
-            round(100 * visibility * pulse, 2),
-            [round(100 * size, 2), round(100 * size, 2), 100],
-        )
-
-    def _build_glow_layer(self):
-        opacities, scales = collect_states(self._build_glow_state)
-        radius = STAR_RADIUS * GLOW_RADIUS_RATIO
-
-        return build_shape_layer(
-            layer_name=f"{self._spec.name}_glow",
-            shapes=[build_shape_group(
-                shape_name="glow",
-                shape_item=build_circle_item(radius=radius),
-                paint_item=build_gradient_fill(
-                    gradient_type=2,
-                    start=[0, 0],
-                    end=[radius, 0],
-                    color_stops=[(0.0, GLOW_COLOR), (1.0, GLOW_COLOR)],
-                    alpha_stops=[(0.0, GLOW_EDGE_ALPHA), (1.0, 0.0)],
-                ),
-            )],
-            position=build_static_property([*self._center, 0]),
-            rotation=build_static_property(0),
-            scale=build_animated_property(scales),
-            opacity=build_animated_property(opacities),
-        )
-
-    def _build_ring_state(self, frame):
-        progress = (frame - self._spec.burst_frame) / RING_FRAMES
-        is_visible = 0 <= progress <= 1
-
-        if not is_visible:
-            return 0, [100, 100, 100]
-
-        scale = 100 * blend(RING_START_SCALE, RING_END_SCALE, ease_out_cubic(progress))
-
-        return (
-            round(RING_PEAK_OPACITY * (1 - smoothstep(progress)), 2),
-            [round(scale, 2), round(scale, 2), 100],
-        )
-
-    def _build_ring_layer(self):
-        opacities, scales = collect_states(self._build_ring_state)
-
-        return build_shape_layer(
-            layer_name=f"{self._spec.name}_ring",
-            shapes=[build_shape_group(
-                shape_name="ring",
-                shape_item=build_circle_item(radius=STAR_RADIUS * RING_RADIUS_RATIO),
-                paint_item=build_stroke(color=RING_COLOR, width=RING_WIDTH),
-            )],
-            position=build_static_property([*self._center, 0]),
-            rotation=build_static_property(0),
-            scale=build_animated_property(scales),
-            opacity=build_animated_property(opacities),
-        )
-
     def _build_sparkle_layers(self):
         spec = self._spec
         center_x, center_y = self._center
@@ -548,6 +479,8 @@ class AnimatedStar:
                 life_frames=SPARKLE_FRAMES,
                 size=100 if is_large else 65,
                 spin_degrees=SPARKLE_SPIN_DEGREES if is_large else -SPARKLE_SPIN_DEGREES,
+                points=build_sparkle_points(),
+                color=SPARKLE_COLOR,
             ))
 
         for index, (twinkle_frame, twinkle_offset) in enumerate(spec.twinkles):
@@ -560,9 +493,37 @@ class AnimatedStar:
                 life_frames=TWINKLE_FRAMES,
                 size=TWINKLE_SIZE,
                 spin_degrees=SPARKLE_SPIN_DEGREES,
+                points=build_sparkle_points(),
+                color=SPARKLE_COLOR,
             ))
 
+        sparkles += self._build_mini_stars()
+
         return [sparkle.build_layer() for sparkle in sparkles]
+
+    def _build_mini_stars(self):
+        """Small gold stars that fly out of the big star in all directions, like confetti."""
+        center_x, center_y = self._center
+        mini_stars = []
+
+        for index in range(MINI_STAR_COUNT):
+            # Half a step offset, so they fly between the sparkles
+            angle = -math.pi / 2 + 2 * math.pi * (index + 0.5) / MINI_STAR_COUNT
+            distance = STAR_RADIUS * MINI_STAR_DISTANCE_RATIO
+            is_spinning_forward = index % 2 == 0
+            mini_stars.append(Sparkle(
+                name=f"{self._spec.name}_mini_star_{index}",
+                start=(center_x, center_y),
+                end=(center_x + math.cos(angle) * distance, center_y + math.sin(angle) * distance),
+                start_frame=self._spec.burst_frame + index * MINI_STAR_STAGGER_FRAMES,
+                life_frames=MINI_STAR_FRAMES,
+                size=MINI_STAR_SIZE,
+                spin_degrees=MINI_STAR_SPIN_DEGREES if is_spinning_forward else -MINI_STAR_SPIN_DEGREES,
+                points=build_mini_star_points(),
+                color=MINI_STAR_COLOR,
+            ))
+
+        return mini_stars
 
 
 FULL_STAR_SPEC = StarSpec(
