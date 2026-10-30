@@ -78,7 +78,7 @@ class ResultBuilder:
             return build_state
 
         print(f"[rebuild]     {target.state_key}")
-        subprocess.run([sys.executable, str(target.script_path)], check=True)
+        subprocess.run([sys.executable, str(target.script_path), *target.arguments], check=True)
 
         build_state[target.state_key] = source_hash
         self._save_build_state(build_state=build_state)

@@ -10,7 +10,12 @@ FLESH = ((255, 96, 108), (222, 40, 76))
 SEED = ((60, 40, 40), (30, 20, 24))
 
 SLICE_CENTER_Y = 340
-SEEDS = [(380, 560, 30), (512, 640, 0), (640, 560, -30), (450, 470, 20), (580, 480, -20), (512, 760, 0), (340, 660, 50), (690, 670, -50)]
+RIND_RADIUS = 420
+WHITE_RIND_RADIUS = 385
+FLESH_RADIUS = 350
+
+# (x, y, angle): all inside the red flesh, tilted along the radius
+SEEDS = [(400, 600, 25), (512, 640, 0), (624, 600, -25), (440, 480, 20), (584, 480, -20), (512, 520, 0), (330, 500, 45), (694, 500, -45)]
 
 
 def build_half_disc_mask(
@@ -24,14 +29,17 @@ def build_half_disc_mask(
 
 
 def paint_slice(painter):
-    painter.fill(mask=build_half_disc_mask(painter=painter, radius=420), shade=RIND)
-    painter.fill(mask=build_half_disc_mask(painter=painter, radius=385), shade=WHITE_RIND)
-    painter.fill(mask=build_half_disc_mask(painter=painter, radius=350), shade=FLESH)
+    painter.fill(mask=build_half_disc_mask(painter=painter, radius=RIND_RADIUS), shade=RIND)
+    painter.fill(mask=build_half_disc_mask(painter=painter, radius=WHITE_RIND_RADIUS), shade=WHITE_RIND)
+    painter.fill(mask=build_half_disc_mask(painter=painter, radius=FLESH_RADIUS), shade=FLESH)
 
 
 def paint_seeds(painter):
+    # The clip makes sure that no seed can ever reach into the rind
+    flesh_mask = build_half_disc_mask(painter=painter, radius=FLESH_RADIUS)
+
     for x, y, angle in SEEDS:
-        painter.fill_ellipse(center=(x, y), radius_x=14, radius_y=28, shade=SEED, angle=angle)
+        painter.fill_ellipse(center=(x, y), radius_x=14, radius_y=28, shade=SEED, angle=angle, clip=flesh_mask)
 
 
 def render_watermelon_image():

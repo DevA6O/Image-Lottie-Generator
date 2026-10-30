@@ -15,6 +15,7 @@ class BuildTarget:
     script: str                # Script in the category folder that writes the output
     output: str                # File name in frontend/results/<category>/
     extra_sources: tuple = ()  # Imported modules that also trigger a rebuild when they change
+    arguments: tuple = ()      # Command line arguments for the script, so one script can write many outputs
     category: str = ""         # Set automatically from the folder name
 
     @property

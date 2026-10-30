@@ -5,13 +5,30 @@ A shade is a pair of colors: (top_color, bottom_color).
 """
 import math
 
+import numpy as np
 from PIL import ImageChops, ImageDraw
 from scipy.interpolate import PchipInterpolator
+from scipy.ndimage import distance_transform_edt
 
 from layer_painter import OUT_DIR, SUPERSAMPLING, LayerPainter
 
 ELLIPSE_POINT_COUNT = 120
 CURVE_POINT_COUNT = 160
+
+CRESCENT_RADIUS_RATIO = 0.22      # Crescent width compared to the thickest radius of the shape
+CRESCENT_MAX_SHIFT = 40           # In final pixels, so huge shapes do not get a huge crescent
+CRESCENT_VERTICAL_RATIO = 0.6     # The light comes more from the left than from the top
+CRESCENT_MEASURE_DOWNSCALE = 8    # The thickness is measured on a small mask to stay fast
+CRESCENT_DARKEN_FACTOR = 0.82
+
+
+def _blend_shade(shade):
+    """Middle color of a (top_color, bottom_color) pair."""
+    return tuple(round((top + bottom) / 2) for top, bottom in zip(shade[0], shade[1]))
+
+
+def _darken(color):
+    return tuple(round(channel * CRESCENT_DARKEN_FACTOR) for channel in color)
 
 
 def rotate_point(
@@ -105,19 +122,69 @@ class FoodPainter(LayerPainter):
         shade,
         clip=None,
     ):
-        """The gradient spans the whole mask, even when a clip shows only a part of it."""
+        """
+        Flat icon look: one solid color and a darker crescent on the lower right side.
+        The shade pair is blended into its middle color. Clipped shapes (highlights, spots) get no crescent.
+        """
         bounds = mask.getbbox()
 
         if bounds is None:
             return
 
         visible_mask = mask if clip is None else self.intersect_masks(first_mask=mask, second_mask=clip)
+        self._paint_flat(mask=visible_mask, color=_blend_shade(shade=shade), bounds=bounds)
+
+        if clip is None:
+            self._paint_crescent(mask=mask, color=_darken(color=_blend_shade(shade=shade)), bounds=bounds)
+
+    def fill_flat(
+        self,
+        mask,
+        shade,
+    ):
+        """One solid color without a crescent, for faces that already have their own darker neighbor."""
+        bounds = mask.getbbox()
+
+        if bounds is None:
+            return
+
+        self._paint_flat(mask=mask, color=_blend_shade(shade=shade), bounds=bounds)
+
+    def _paint_flat(
+        self,
+        mask,
+        color,
+        bounds,
+    ):
         self.paint(
-            mask=visible_mask,
-            color_stops=[(0.0, shade[0]), (1.0, shade[1])],
+            mask=mask,
+            color_stops=[(0.0, color), (1.0, color)],
             top=bounds[1] / SUPERSAMPLING,
             bottom=bounds[3] / SUPERSAMPLING,
         )
+
+    def _paint_crescent(
+        self,
+        mask,
+        color,
+        bounds,
+    ):
+        """The part of the shape that is not covered when the shape is moved to the upper left."""
+        shift = self._measure_crescent_shift(mask=mask)
+
+        if shift < 1:
+            return
+
+        lit_mask = ImageChops.offset(mask, -shift, -round(shift * CRESCENT_VERTICAL_RATIO))
+        crescent_mask = ImageChops.subtract(mask, lit_mask)
+        self._paint_flat(mask=crescent_mask, color=color, bounds=bounds)
+
+    def _measure_crescent_shift(self, mask):
+        """Shift in supersampled pixels. Based on the thickest part, so thin stems keep a thin crescent."""
+        small_mask = np.asarray(mask.resize((mask.width // CRESCENT_MEASURE_DOWNSCALE, mask.height // CRESCENT_MEASURE_DOWNSCALE))) > 127
+        thickest_radius = distance_transform_edt(small_mask).max() * CRESCENT_MEASURE_DOWNSCALE
+
+        return round(min(thickest_radius * CRESCENT_RADIUS_RATIO, CRESCENT_MAX_SHIFT * SUPERSAMPLING))
 
     def fill_ellipse(
         self,

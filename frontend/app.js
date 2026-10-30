@@ -10,7 +10,7 @@ const themeToggleElement = document.getElementById("theme-toggle");
 
 const KIND_LABELS = { image: "Image", lottie: "Lottie" };
 const MANIFEST_URL = "results/manifest.json";
-const CATEGORY_ORDER = ["streak", "rating", "food"];   // Categories not listed here come last
+const CATEGORY_ORDER = ["streak", "rating", "food", "verbs"];   // Categories not listed here come last
 const KEY_ENTER = "Enter";
 const KEY_SPACE = " ";
 const KEY_ESCAPE = "Escape";

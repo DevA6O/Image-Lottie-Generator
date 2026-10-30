@@ -2,12 +2,12 @@
 Bread loaf image, drawn from scratch.
 Output: bread.png (1024x1024, transparent background) in frontend/results/food
 """
-from layer_painter import OUT_DIR, LayerPainter
+from food_painter import FoodPainter
 
-CRUST_COLORS = [(0.0, (150, 80, 30)), (1.0, (196, 112, 44))]
-SHADOW_COLORS = [(0.0, (120, 60, 24)), (1.0, (150, 80, 30))]
-TOP_COLORS = [(0.0, (240, 176, 84)), (1.0, (214, 136, 56))]
-SLASH_COLORS = [(0.0, (255, 232, 176)), (1.0, (250, 206, 128))]
+CRUST = ((150, 80, 30), (196, 112, 44))
+SHADOW = ((120, 60, 24), (150, 80, 30))
+TOP = ((240, 176, 84), (214, 136, 56))
+SLASH = ((255, 232, 176), (250, 206, 128))
 
 LOAF_TOP, LOAF_BOTTOM = 270, 790
 UNDERSIDE_TOP = 715
@@ -49,14 +49,14 @@ def build_loaf_mask(
 
 def paint_loaf_body(painter):
     loaf_mask = build_loaf_mask(painter=painter, inset=0)
-    painter.paint(mask=loaf_mask, color_stops=CRUST_COLORS, top=LOAF_TOP, bottom=LOAF_BOTTOM)
+    painter.fill(mask=loaf_mask, shade=CRUST)
 
     # Darker rim at the bottom, like the baked underside
     underside_mask = painter.intersect_masks(
         first_mask=loaf_mask,
         second_mask=painter.build_polygon_mask(points=[(0, UNDERSIDE_TOP), (1024, UNDERSIDE_TOP), (1024, 1024), (0, 1024)]),
     )
-    painter.paint(mask=underside_mask, color_stops=SHADOW_COLORS, top=UNDERSIDE_TOP, bottom=LOAF_BOTTOM)
+    painter.fill_flat(mask=underside_mask, shade=SHADOW)
 
 
 def paint_loaf_top(painter):
@@ -65,21 +65,21 @@ def paint_loaf_top(painter):
         first_mask=top_mask,
         second_mask=painter.build_polygon_mask(points=[(0, 0), (1024, 0), (1024, UNDERSIDE_TOP - 10), (0, UNDERSIDE_TOP - 10)]),
     )
-    painter.paint(mask=top_mask, color_stops=TOP_COLORS, top=LOAF_TOP, bottom=UNDERSIDE_TOP)
+    painter.fill(mask=top_mask, shade=TOP)
 
 
 def paint_slashes(painter):
     for start, end in SLASH_LINES:
         slash_mask = painter.build_stroke_mask(start=start, end=end, width=SLASH_WIDTH)
-        painter.paint(mask=slash_mask, color_stops=SLASH_COLORS, top=385, bottom=560)
+        painter.fill_flat(mask=slash_mask, shade=SLASH)
 
 
 def render_bread_image():
-    painter = LayerPainter()
+    painter = FoodPainter()
     paint_loaf_body(painter)
     paint_loaf_top(painter)
     paint_slashes(painter)
-    painter.save(out_file=OUT_DIR / "bread.png")
+    painter.save_image(name="bread")
 
 
 if __name__ == "__main__":

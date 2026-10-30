@@ -317,6 +317,162 @@
           "file": "results/streak/streak_flame.json"
         }
       ]
+    },
+    {
+      "id": "verbs",
+      "title": "Irregular Verbs",
+      "items": [
+        {
+          "title": "Go (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/go_infinitive.png"
+        },
+        {
+          "title": "Went (past)",
+          "kind": "image",
+          "file": "results/verbs/go_past.png"
+        },
+        {
+          "title": "Gone (past participle)",
+          "kind": "image",
+          "file": "results/verbs/go_participle.png"
+        },
+        {
+          "title": "Run (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/run_infinitive.png"
+        },
+        {
+          "title": "Ran (past)",
+          "kind": "image",
+          "file": "results/verbs/run_past.png"
+        },
+        {
+          "title": "Run (past participle)",
+          "kind": "image",
+          "file": "results/verbs/run_participle.png"
+        },
+        {
+          "title": "Fall (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/fall_infinitive.png"
+        },
+        {
+          "title": "Fell (past)",
+          "kind": "image",
+          "file": "results/verbs/fall_past.png"
+        },
+        {
+          "title": "Fallen (past participle)",
+          "kind": "image",
+          "file": "results/verbs/fall_participle.png"
+        },
+        {
+          "title": "Know (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/know_infinitive.png"
+        },
+        {
+          "title": "Knew (past)",
+          "kind": "image",
+          "file": "results/verbs/know_past.png"
+        },
+        {
+          "title": "Known (past participle)",
+          "kind": "image",
+          "file": "results/verbs/know_participle.png"
+        },
+        {
+          "title": "Think (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/think_infinitive.png"
+        },
+        {
+          "title": "Thought (past)",
+          "kind": "image",
+          "file": "results/verbs/think_past.png"
+        },
+        {
+          "title": "Thought (past participle)",
+          "kind": "image",
+          "file": "results/verbs/think_participle.png"
+        },
+        {
+          "title": "See (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/see_infinitive.png"
+        },
+        {
+          "title": "Saw (past)",
+          "kind": "image",
+          "file": "results/verbs/see_past.png"
+        },
+        {
+          "title": "Seen (past participle)",
+          "kind": "image",
+          "file": "results/verbs/see_participle.png"
+        },
+        {
+          "title": "Write (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/write_infinitive.png"
+        },
+        {
+          "title": "Wrote (past)",
+          "kind": "image",
+          "file": "results/verbs/write_past.png"
+        },
+        {
+          "title": "Written (past participle)",
+          "kind": "image",
+          "file": "results/verbs/write_participle.png"
+        },
+        {
+          "title": "Give (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/give_infinitive.png"
+        },
+        {
+          "title": "Gave (past)",
+          "kind": "image",
+          "file": "results/verbs/give_past.png"
+        },
+        {
+          "title": "Given (past participle)",
+          "kind": "image",
+          "file": "results/verbs/give_participle.png"
+        },
+        {
+          "title": "Break (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/break_infinitive.png"
+        },
+        {
+          "title": "Broke (past)",
+          "kind": "image",
+          "file": "results/verbs/break_past.png"
+        },
+        {
+          "title": "Broken (past participle)",
+          "kind": "image",
+          "file": "results/verbs/break_participle.png"
+        },
+        {
+          "title": "Be (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/be_infinitive.png"
+        },
+        {
+          "title": "Was / Were (past)",
+          "kind": "image",
+          "file": "results/verbs/be_past.png"
+        },
+        {
+          "title": "Been (past participle)",
+          "kind": "image",
+          "file": "results/verbs/be_participle.png"
+        }
+      ]
     }
   ]
 }
