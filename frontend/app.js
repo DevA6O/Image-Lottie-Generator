@@ -4,6 +4,7 @@ const lightboxElement = document.getElementById("lightbox");
 const lightboxStageElement = document.getElementById("stage");
 const lightboxCaptionElement = document.getElementById("caption");
 const lightboxDownloadElement = document.getElementById("lightbox-download");
+const themeToggleElement = document.getElementById("theme-toggle");
 
 const KIND_LABELS = { image: "Image", lottie: "Lottie" };
 const MANIFEST_URL = "results/manifest.json";
@@ -11,6 +12,10 @@ const ALL_CATEGORIES_ID = null;
 const KEY_ENTER = "Enter";
 const KEY_SPACE = " ";
 const KEY_ESCAPE = "Escape";
+const THEME_STORAGE_KEY = "theme";   // Same key as in the script in index.html
+const THEME_LIGHT = "light";
+const THEME_DARK = "dark";
+const THEME_ICONS = { [THEME_LIGHT]: "☾", [THEME_DARK]: "☀" };   // The icon shows the theme you switch to
 
 let lightboxAnimation = null;
 
@@ -24,6 +29,41 @@ function loadGallery() {
     .catch(() => renderEmptyMessage("Could not load the manifest."));
 
   registerLightboxListeners();
+  registerThemeToggle();
+}
+
+function registerThemeToggle() {
+  updateThemeToggle();
+  themeToggleElement.addEventListener("click", toggleTheme);
+}
+
+function toggleTheme() {
+  const nextTheme = getCurrentTheme() === THEME_LIGHT ? THEME_DARK : THEME_LIGHT;
+
+  document.documentElement.dataset.theme = nextTheme;
+  saveTheme(nextTheme);
+  updateThemeToggle();
+}
+
+function getCurrentTheme() {
+  return document.documentElement.dataset.theme === THEME_LIGHT ? THEME_LIGHT : THEME_DARK;
+}
+
+function saveTheme(theme) {
+  try {
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
+  } catch (error) {
+    // Storage can be blocked. The theme then only lasts until the page is closed.
+  }
+}
+
+function updateThemeToggle() {
+  const currentTheme = getCurrentTheme();
+  const label = currentTheme === THEME_LIGHT ? "Switch to dark mode" : "Switch to light mode";
+
+  themeToggleElement.textContent = THEME_ICONS[currentTheme];
+  themeToggleElement.setAttribute("aria-label", label);
+  themeToggleElement.title = label;
 }
 
 function renderCategoryFilters(categories) {

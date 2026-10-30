@@ -1,6 +1,308 @@
 {
   "categories": [
     {
+      "id": "food",
+      "title": "Food",
+      "items": [
+        {
+          "title": "Bread",
+          "kind": "image",
+          "file": "results/food/bread.png"
+        },
+        {
+          "title": "Cheese",
+          "kind": "image",
+          "file": "results/food/cheese.png"
+        },
+        {
+          "title": "Butter",
+          "kind": "image",
+          "file": "results/food/butter.png"
+        },
+        {
+          "title": "Pizza",
+          "kind": "image",
+          "file": "results/food/pizza.png"
+        },
+        {
+          "title": "Toast",
+          "kind": "image",
+          "file": "results/food/toast.png"
+        },
+        {
+          "title": "Olives",
+          "kind": "image",
+          "file": "results/food/olives.png"
+        },
+        {
+          "title": "Croissant",
+          "kind": "image",
+          "file": "results/food/croissant.png"
+        },
+        {
+          "title": "Baguette",
+          "kind": "image",
+          "file": "results/food/baguette.png"
+        },
+        {
+          "title": "Pretzel",
+          "kind": "image",
+          "file": "results/food/pretzel.png"
+        },
+        {
+          "title": "Donut",
+          "kind": "image",
+          "file": "results/food/donut.png"
+        },
+        {
+          "title": "Cookie",
+          "kind": "image",
+          "file": "results/food/cookie.png"
+        },
+        {
+          "title": "Cupcake",
+          "kind": "image",
+          "file": "results/food/cupcake.png"
+        },
+        {
+          "title": "Cake Slice",
+          "kind": "image",
+          "file": "results/food/cake_slice.png"
+        },
+        {
+          "title": "Pancakes",
+          "kind": "image",
+          "file": "results/food/pancakes.png"
+        },
+        {
+          "title": "Fried Egg",
+          "kind": "image",
+          "file": "results/food/fried_egg.png"
+        },
+        {
+          "title": "Egg",
+          "kind": "image",
+          "file": "results/food/egg.png"
+        },
+        {
+          "title": "Bacon",
+          "kind": "image",
+          "file": "results/food/bacon.png"
+        },
+        {
+          "title": "Sausage",
+          "kind": "image",
+          "file": "results/food/sausage.png"
+        },
+        {
+          "title": "Drumstick",
+          "kind": "image",
+          "file": "results/food/drumstick.png"
+        },
+        {
+          "title": "Burger",
+          "kind": "image",
+          "file": "results/food/burger.png"
+        },
+        {
+          "title": "Hot Dog",
+          "kind": "image",
+          "file": "results/food/hot_dog.png"
+        },
+        {
+          "title": "Fries",
+          "kind": "image",
+          "file": "results/food/fries.png"
+        },
+        {
+          "title": "Taco",
+          "kind": "image",
+          "file": "results/food/taco.png"
+        },
+        {
+          "title": "Sandwich",
+          "kind": "image",
+          "file": "results/food/sandwich.png"
+        },
+        {
+          "title": "Apple",
+          "kind": "image",
+          "file": "results/food/apple.png"
+        },
+        {
+          "title": "Banana",
+          "kind": "image",
+          "file": "results/food/banana.png"
+        },
+        {
+          "title": "Orange",
+          "kind": "image",
+          "file": "results/food/orange.png"
+        },
+        {
+          "title": "Strawberry",
+          "kind": "image",
+          "file": "results/food/strawberry.png"
+        },
+        {
+          "title": "Cherries",
+          "kind": "image",
+          "file": "results/food/cherries.png"
+        },
+        {
+          "title": "Grapes",
+          "kind": "image",
+          "file": "results/food/grapes.png"
+        },
+        {
+          "title": "Watermelon",
+          "kind": "image",
+          "file": "results/food/watermelon.png"
+        },
+        {
+          "title": "Lemon",
+          "kind": "image",
+          "file": "results/food/lemon.png"
+        },
+        {
+          "title": "Pear",
+          "kind": "image",
+          "file": "results/food/pear.png"
+        },
+        {
+          "title": "Pineapple",
+          "kind": "image",
+          "file": "results/food/pineapple.png"
+        },
+        {
+          "title": "Tomato",
+          "kind": "image",
+          "file": "results/food/tomato.png"
+        },
+        {
+          "title": "Carrot",
+          "kind": "image",
+          "file": "results/food/carrot.png"
+        },
+        {
+          "title": "Broccoli",
+          "kind": "image",
+          "file": "results/food/broccoli.png"
+        },
+        {
+          "title": "Corn",
+          "kind": "image",
+          "file": "results/food/corn.png"
+        },
+        {
+          "title": "Eggplant",
+          "kind": "image",
+          "file": "results/food/eggplant.png"
+        },
+        {
+          "title": "Mushroom",
+          "kind": "image",
+          "file": "results/food/mushroom.png"
+        },
+        {
+          "title": "Avocado",
+          "kind": "image",
+          "file": "results/food/avocado.png"
+        },
+        {
+          "title": "Bell Pepper",
+          "kind": "image",
+          "file": "results/food/bell_pepper.png"
+        },
+        {
+          "title": "Onion",
+          "kind": "image",
+          "file": "results/food/onion.png"
+        },
+        {
+          "title": "Potato",
+          "kind": "image",
+          "file": "results/food/potato.png"
+        },
+        {
+          "title": "Garlic",
+          "kind": "image",
+          "file": "results/food/garlic.png"
+        },
+        {
+          "title": "Cucumber",
+          "kind": "image",
+          "file": "results/food/cucumber.png"
+        },
+        {
+          "title": "Peanut",
+          "kind": "image",
+          "file": "results/food/peanut.png"
+        },
+        {
+          "title": "Popcorn",
+          "kind": "image",
+          "file": "results/food/popcorn.png"
+        },
+        {
+          "title": "Chocolate",
+          "kind": "image",
+          "file": "results/food/chocolate.png"
+        },
+        {
+          "title": "Ice Cream",
+          "kind": "image",
+          "file": "results/food/ice_cream.png"
+        },
+        {
+          "title": "Honey",
+          "kind": "image",
+          "file": "results/food/honey.png"
+        },
+        {
+          "title": "Milk",
+          "kind": "image",
+          "file": "results/food/milk.png"
+        },
+        {
+          "title": "Coffee",
+          "kind": "image",
+          "file": "results/food/coffee.png"
+        },
+        {
+          "title": "Soda",
+          "kind": "image",
+          "file": "results/food/soda.png"
+        }
+      ]
+    },
+    {
+      "id": "rating",
+      "title": "Rating",
+      "items": [
+        {
+          "title": "Full Star",
+          "kind": "image",
+          "file": "results/rating/full_star.png"
+        },
+        {
+          "title": "Half Star",
+          "kind": "image",
+          "file": "results/rating/half_star.png"
+        },
+        {
+          "title": "Full Star",
+          "kind": "lottie",
+          "file": "results/rating/full_star.json"
+        },
+        {
+          "title": "Half Star",
+          "kind": "lottie",
+          "file": "results/rating/half_star.json"
+        }
+      ]
+    },
+    {
       "id": "streak",
       "title": "Streak",
       "items": [
