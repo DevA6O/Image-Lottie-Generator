@@ -1,6 +1,52 @@
 {
   "categories": [
     {
+      "id": "character",
+      "title": "Characters",
+      "items": [
+        {
+          "title": "Milo Standing",
+          "kind": "image",
+          "file": "results/character/milo_standing.png"
+        },
+        {
+          "title": "Milo Waving",
+          "kind": "image",
+          "file": "results/character/milo_waving.png"
+        },
+        {
+          "title": "Milo Walking",
+          "kind": "image",
+          "file": "results/character/milo_walking.png"
+        },
+        {
+          "title": "Milo Running",
+          "kind": "image",
+          "file": "results/character/milo_running.png"
+        },
+        {
+          "title": "Milo Cheering",
+          "kind": "image",
+          "file": "results/character/milo_cheering.png"
+        },
+        {
+          "title": "Milo Thinking",
+          "kind": "image",
+          "file": "results/character/milo_thinking.png"
+        },
+        {
+          "title": "Milo Surprised",
+          "kind": "image",
+          "file": "results/character/milo_surprised.png"
+        },
+        {
+          "title": "Milo Portrait",
+          "kind": "image",
+          "file": "results/character/milo_portrait.png"
+        }
+      ]
+    },
+    {
       "id": "food",
       "title": "Food",
       "items": [

@@ -51,10 +51,17 @@
 
   <div id="lightbox" class="lightbox" hidden>
     <button class="close" id="close" aria-label="Close">&times;</button>
+    <button class="nav-arrow previous" id="previous" aria-label="Previous" title="Previous (left arrow)">
+      <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <button class="nav-arrow next" id="next" aria-label="Next" title="Next (right arrow)">
+      <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
     <figure>
       <div id="stage" class="stage"></div>
       <figcaption>
         <span id="caption"></span>
+        <span id="position" class="position"></span>
         <a id="lightbox-download" class="lightbox-download">Download</a>
       </figcaption>
     </figure>

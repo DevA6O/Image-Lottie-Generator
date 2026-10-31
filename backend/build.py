@@ -2,7 +2,7 @@
 Build check: renders images and Lottie JSONs again when their source scripts changed
 (or the output file is missing) and writes the manifest for the gallery.
 
-Every category folder in backend/ describes its files in its own build_config.py.
+Every category folder in backend/generators/ describes its files in its own build_config.py.
 To add a new category: create the folder and add a build_config.py. Nothing changes here.
 """
 import importlib.util
@@ -12,7 +12,10 @@ import subprocess
 import sys
 from dataclasses import dataclass, replace
 
-from build_target import BACKEND_DIR, RESULTS_DIR
+from build_target import BACKEND_DIR, GENERATORS_DIR, RESULTS_DIR
+
+# The build_config files import the helpers of their own category (e.g. verbs.verb_catalog)
+sys.path.append(str(GENERATORS_DIR))
 
 BUILD_STATE_FILE = BACKEND_DIR / ".build_state.json"
 MANIFEST_FILE = RESULTS_DIR / "manifest.json"
@@ -45,7 +48,7 @@ def load_build_category(category_dir):
 
 def discover_build_categories():
     category_dirs = sorted(
-        path for path in BACKEND_DIR.iterdir()
+        path for path in GENERATORS_DIR.iterdir()
         if (path / BUILD_CONFIG_FILE_NAME).exists()
     )
 
@@ -95,8 +98,8 @@ class ResultBuilder:
         return build_state
 
     def _build_script_environment(self):
-        """The scripts import the shared packages (painting, food, verbs) from the backend folder."""
-        search_path = os.pathsep.join(filter(None, [str(BACKEND_DIR), os.environ.get("PYTHONPATH")]))
+        """The scripts import the shared painting package and the category packages (food, verbs ...)."""
+        search_path = os.pathsep.join(filter(None, [str(BACKEND_DIR), str(GENERATORS_DIR), os.environ.get("PYTHONPATH")]))
 
         return {**os.environ, "PYTHONPATH": search_path}
 

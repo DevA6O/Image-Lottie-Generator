@@ -5,20 +5,26 @@ const searchElement = document.getElementById("search");
 const lightboxElement = document.getElementById("lightbox");
 const lightboxStageElement = document.getElementById("stage");
 const lightboxCaptionElement = document.getElementById("caption");
+const lightboxPositionElement = document.getElementById("position");
+const lightboxPreviousElement = document.getElementById("previous");
+const lightboxNextElement = document.getElementById("next");
 const lightboxDownloadElement = document.getElementById("lightbox-download");
 const themeToggleElement = document.getElementById("theme-toggle");
 
 const KIND_LABELS = { image: "Image", lottie: "Lottie" };
 const MANIFEST_URL = "results/manifest.json";
-const CATEGORY_ORDER = ["streak", "rating", "food", "verbs"];   // Categories not listed here come last
+const CATEGORY_ORDER = ["streak", "rating", "food", "verbs", "character"];   // Categories not listed here come last
 const KEY_ENTER = "Enter";
 const KEY_SPACE = " ";
 const KEY_ESCAPE = "Escape";
+const KEY_ARROW_LEFT = "ArrowLeft";
+const KEY_ARROW_RIGHT = "ArrowRight";
 const KEY_SEARCH_FOCUS = "/";
 const THEME_STORAGE_KEY = "theme";   // Same key as in the script in index.html
 const THEME_LIGHT = "light";
 const THEME_DARK = "dark";
 const ACTIVE_SECTION_OFFSET = 140;   // Pixels below the top where a section counts as "current"
+const SWIPE_MIN_DISTANCE = 50;       // Pixels a finger must travel sideways to count as a swipe
 
 const ICON_MOON = '<svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>';
 const ICON_SUN = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
@@ -31,10 +37,14 @@ const CATEGORY_ICONS = {
   streak: '<svg viewBox="0 0 24 24"><path d="M12 22c4 0 7-2.8 7-7 0-3-1.8-5-3.5-7-.4 1.5-1.2 2.5-2.5 3 0-3-1.5-5.5-4-8-.5 3-4 5.5-4 11 0 4.2 3 8 7 8z"/></svg>',
   rating: '<svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8l-5.4 2.9 1.1-6.1L3.2 9.4l6.1-.8z"/></svg>',
   food: '<svg viewBox="0 0 24 24"><path d="M7 3v8a2 2 0 002 2v8M11 3v8a2 2 0 01-2 2M17 21V3c-2.5 1.5-3 5-3 8h3"/></svg>',
+  character: '<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>',
 };
 
 let allCategories = [];
 let lightboxAnimation = null;
+let lightboxItems = [];     // The items that the arrows and swipes page through, in the order of the gallery
+let lightboxIndex = 0;
+let swipeStart = null;
 
 function loadGallery() {
   fetch(MANIFEST_URL, { cache: "no-store" })
@@ -306,23 +316,97 @@ function mountMedia(element, item) {
 
 function registerLightboxListeners() {
   document.getElementById("close").addEventListener("click", closeLightbox);
+  lightboxPreviousElement.addEventListener("click", showPreviousItem);
+  lightboxNextElement.addEventListener("click", showNextItem);
 
   lightboxElement.addEventListener("click", event => {
     if (event.target === lightboxElement) closeLightbox();
   });
 
-  document.addEventListener("keydown", event => {
-    if (event.key === KEY_ESCAPE && !lightboxElement.hidden) closeLightbox();
-  });
+  document.addEventListener("keydown", handleLightboxKey);
+  registerSwipeListeners();
+}
+
+function handleLightboxKey(event) {
+  if (lightboxElement.hidden) return;
+
+  if (event.key === KEY_ESCAPE) closeLightbox();
+
+  if (event.key === KEY_ARROW_LEFT) {
+    event.preventDefault();
+    showPreviousItem();
+  }
+
+  if (event.key === KEY_ARROW_RIGHT) {
+    event.preventDefault();
+    showNextItem();
+  }
+}
+
+function registerSwipeListeners() {
+  lightboxElement.addEventListener("touchstart", event => {
+    const touch = event.changedTouches[0];
+    swipeStart = { x: touch.clientX, y: touch.clientY };
+  }, { passive: true });
+
+  lightboxElement.addEventListener("touchend", event => {
+    if (!swipeStart) return;
+
+    const touch = event.changedTouches[0];
+    const distanceX = touch.clientX - swipeStart.x;
+    const distanceY = touch.clientY - swipeStart.y;
+    swipeStart = null;
+
+    const isSideways = Math.abs(distanceX) > SWIPE_MIN_DISTANCE && Math.abs(distanceX) > Math.abs(distanceY);
+    if (!isSideways) return;
+
+    // Swiping left brings the next item, like turning a page
+    if (distanceX < 0) showNextItem();
+    else showPreviousItem();
+  }, { passive: true });
 }
 
 function openLightbox(item) {
-  lightboxAnimation = mountMedia(lightboxStageElement, item);
-  lightboxCaptionElement.textContent = `${item.title} · ${getKindLabel(item)}`;
-  setDownloadTarget(lightboxDownloadElement, item);
+  lightboxItems = getVisibleItems();
+  lightboxIndex = Math.max(lightboxItems.findIndex(candidate => candidate.file === item.file), 0);
+  showLightboxItem();
 
   lightboxElement.hidden = false;
   document.body.style.overflow = "hidden";
+}
+
+function getVisibleItems() {
+  const visibleCategories = filterCategories({ categories: allCategories, query: searchElement.value });
+  return visibleCategories.flatMap(category => category.items);
+}
+
+function showLightboxItem() {
+  const item = lightboxItems[lightboxIndex];
+  const hasOtherItems = lightboxItems.length > 1;
+
+  lightboxAnimation?.destroy();
+  lightboxAnimation = mountMedia(lightboxStageElement, item);
+  lightboxCaptionElement.textContent = `${item.title} · ${getKindLabel(item)}`;
+  lightboxPositionElement.textContent = `${lightboxIndex + 1} / ${lightboxItems.length}`;
+  setDownloadTarget(lightboxDownloadElement, item);
+
+  lightboxPreviousElement.hidden = !hasOtherItems;
+  lightboxNextElement.hidden = !hasOtherItems;
+}
+
+function showPreviousItem() {
+  moveLightbox(-1);
+}
+
+function showNextItem() {
+  moveLightbox(1);
+}
+
+/** After the last item the first one comes again, and the other way round. */
+function moveLightbox(step) {
+  const itemCount = lightboxItems.length;
+  lightboxIndex = (lightboxIndex + step + itemCount) % itemCount;
+  showLightboxItem();
 }
 
 function closeLightbox() {

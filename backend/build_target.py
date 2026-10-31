@@ -2,13 +2,15 @@ from dataclasses import dataclass
 from hashlib import sha256
 from pathlib import Path
 
+from painting.results_dir import RESULTS_DIR
+
 BACKEND_DIR = Path(__file__).resolve().parent
-RESULTS_DIR = BACKEND_DIR.parent / "frontend" / "results"
+GENERATORS_DIR = BACKEND_DIR / "generators"
 
 
 @dataclass(frozen=True)
 class BuildTarget:
-    """One generated file. Defined in backend/<category>/build_config.py."""
+    """One generated file. Defined in backend/generators/<category>/build_config.py."""
 
     title: str
     kind: str                  # "image" or "lottie"
@@ -24,7 +26,7 @@ class BuildTarget:
 
     @property
     def script_path(self):
-        return BACKEND_DIR / self.category / self.script
+        return GENERATORS_DIR / self.category / self.script
 
     @property
     def output_path(self):
@@ -38,6 +40,6 @@ class BuildTarget:
         digest = sha256()
 
         for source in (self.script, *self.extra_sources):
-            digest.update((BACKEND_DIR / self.category / source).read_bytes())
+            digest.update((GENERATORS_DIR / self.category / source).read_bytes())
 
         return digest.hexdigest()

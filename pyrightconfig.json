@@ -1,6 +1,6 @@
 {
   "include": ["backend"],
-  "extraPaths": ["backend"],
+  "extraPaths": ["backend", "backend/generators"],
   "venvPath": ".",
   "venv": "_env"
 }

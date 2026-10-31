@@ -12,7 +12,7 @@ See the "about" category of the repo
 
 ## How it works
 
-- `backend/` holds the generator scripts, one folder per category (e.g. `streak/`).
+- `backend/generators/` holds the generator scripts, one folder per category (e.g. `streak/`). `backend/painting/` holds the shared painters.
 - When started, the backend checks which scripts changed and rebuilds only the outdated images and Lottie JSONs.
 - `frontend/` shows the results in a dark-mode gallery, grouped by category. Click an image or animation to view it larger.
 
@@ -30,8 +30,8 @@ Options: `--force` (rebuild everything), `--port 8000`, `--no-browser`.
 
 ## Adding a new image or animation
 
-1. Add a generator script to `backend/<category>/` (new folder for a new category; categories with many images use `gen/<theme>/` subfolders). It writes to `frontend/results/<category>/`.
-2. Register the file in `backend/<category>/build_config.py` as a `BuildTarget`. New categories need their own `build_config.py`.
+1. Add a generator script to `backend/generators/<category>/` (new folder for a new category; categories with many images use `gen/<theme>/` subfolders). It writes to `frontend/results/<category>/`.
+2. Register the file in `backend/generators/<category>/build_config.py` as a `BuildTarget`. New categories need their own `build_config.py`.
 
 `backend/build.py` finds all categories on its own, so it never needs to change.
 

@@ -212,6 +212,22 @@ figcaption { display: flex; align-items: center; justify-content: center; margin
   color: var(--text); font-size: 26px; line-height: 1; cursor: pointer;
 }
 .close:hover { border-color: var(--accent); color: var(--accent); }
+.nav-arrow {
+  position: absolute; top: 50%; width: 46px; height: 46px; margin-top: -23px;
+  display: grid; place-items: center; cursor: pointer;
+  border-radius: 14px; border: 1px solid var(--border); background: var(--surface); color: var(--text);
+}
+.nav-arrow[hidden] { display: none; }
+.nav-arrow svg { width: 22px; height: 22px; }
+.nav-arrow:hover, .nav-arrow:focus-visible { border-color: var(--accent); color: var(--accent); outline: none; }
+.previous { left: 24px; }
+.next { right: 24px; }
+.position { margin-left: 10px; font-size: 13px; }
+
+/* Touch screens swipe instead of pressing the arrows */
+@media (pointer: coarse) {
+  .nav-arrow { display: none; }
+}
 
 /* ---------- Small screens ---------- */
 @media (max-width: 860px) {

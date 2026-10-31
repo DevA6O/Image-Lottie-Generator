@@ -7,12 +7,15 @@ Generates images and Lottie animations (backend) and shows them in a dark-mode g
 - `start.py` is the cross-platform launcher: sets up `_env` if needed, runs the backend, then the frontend opens in the browser.
 - `backend/main.py` checks for changes, rebuilds outdated results and starts the frontend server.
 - `backend/build.py` finds all categories automatically. Do not register files there.
-- `backend/<category>/` contains the generator scripts of one category (e.g. `streak/`).
-- Categories with many images (`food/`, `verbs/`) keep one generator script per image in `gen/<theme>/` (e.g. `food/gen/fruits/apple.py`, `verbs/gen/motion/go.py`).
+- `backend/generators/` holds everything that generates images or Lottie files, one folder per category (e.g. `streak/`).
+  Nothing else lives there: shared helpers are in `backend/painting/`.
+- Categories with many images (`food/`, `verbs/`) keep one generator script per image in `gen/<theme>/` (e.g. `generators/food/gen/fruits/apple.py`).
   Helpers (painter, catalog, runner, `build_config.py`) stay directly in the category folder, never in `gen/`.
+- `generators/character/` holds the characters: the shared body (`figure.py`), one subfolder per character (e.g. `milo/`) and their showcase images in `gen/<character>/`.
+  Other categories (e.g. `verbs/`) import a character from there.
 - `backend/painting/` holds the painters that several categories share. Import them as `from painting.flat_painter import ...`.
-  The build sets `PYTHONPATH` to `backend/`, and `pyrightconfig.json` tells the IDE the same.
-- `backend/<category>/build_config.py` registers every generated file of that category as a `BuildTarget`.
+  The build sets `PYTHONPATH` to `backend/` and `backend/generators/` (so `food`, `verbs` ... are importable), and `pyrightconfig.json` tells the IDE the same.
+- `backend/generators/<category>/build_config.py` registers every generated file of that category as a `BuildTarget`.
 - `frontend/results/<category>/` contains the generated files and the `manifest.json`. Never edit these by hand.
 - `frontend/` is plain HTML, CSS and JS. No framework, no build step, libraries live in `frontend/vendor/`.
 - Python environment: `_env`. Dependencies go into `requirements.txt` (ask before adding a new one).
