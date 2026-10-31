@@ -7,7 +7,7 @@ from character.figure import Pose
 from character.milo.milo import Milo
 from verbs.props import BLUE, draw_heart, draw_music_note, draw_sound_waves
 from verbs.render_verb import render_verb_from_command_line
-from verbs.tense import INFINITIVE, PARTICIPLE
+from verbs.tense import INFINITIVE, PARTICIPLE, paint_past_clock
 
 
 def paint_hear_scene(painter, form):
@@ -21,6 +21,8 @@ def paint_hear_scene(painter, form):
 
     if form == PARTICIPLE:
         draw_heart(painter=painter, center=(240, 330), size=34)
+    elif form != INFINITIVE:
+        paint_past_clock(painter=painter, center=(210, 250))
 
 
 if __name__ == "__main__":

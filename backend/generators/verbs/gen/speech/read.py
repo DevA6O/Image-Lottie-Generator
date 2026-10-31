@@ -8,16 +8,17 @@ from character.milo.milo import Milo
 from character.poses import STAND_HIP
 from verbs.props import BLUE, GREEN, ORANGE, draw_closed_book, draw_open_book, draw_sparkle
 from verbs.render_verb import render_verb_from_command_line
-from verbs.tense import PARTICIPLE, PAST
+from verbs.tense import PARTICIPLE, PAST, paint_past_clock
 
 
 def paint_read_scene(painter, form):
-    pose = Pose(left_arm=(-40, 110), right_arm=(40, -110), eyes="closed", mouth="smile")
+    pose = Pose(left_arm=(-40, 40), right_arm=(40, -40), eyes="closed", mouth="smile")
     Milo(hip=STAND_HIP).draw(painter=painter, pose=pose)
-    draw_open_book(painter=painter, center=(512, 560), width=300, height=190)
+    draw_open_book(painter=painter, center=(512, 590), width=190, height=140)
 
     if form == PAST:
         draw_sparkle(painter=painter, center=(780, 400), size=34)
+        paint_past_clock(painter=painter, center=(800, 230))
     elif form == PARTICIPLE:
         draw_closed_book(painter=painter, center=(820, 780), width=190, height=50, color=BLUE)
         draw_closed_book(painter=painter, center=(830, 730), width=170, height=50, color=GREEN)

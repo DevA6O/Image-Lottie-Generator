@@ -7,17 +7,25 @@ from character.milo.milo import Milo
 from character.poses import CHEER_POSE
 from verbs.props import GREEN, draw_arrow, draw_sparkle, draw_sun
 from verbs.render_verb import render_verb_from_command_line
-from verbs.tense import PARTICIPLE
+from verbs.tense import PAST, PARTICIPLE, paint_past_clock
+
+SUN_X = 230
+SUN_HEIGHTS = (770, 600, 400)    # Low, halfway, high: one per form
+ARROW_X = 430
 
 
 def paint_rise_scene(painter, form):
-    sun_height = (770, 600, 430)[form]
-    draw_sun(painter=painter, center=(300, sun_height), radius=80)
-    Milo(hip=(650, 600)).draw(painter=painter, pose=CHEER_POSE)
-    draw_arrow(painter=painter, start=(440, 700), end=(440, 520), color=GREEN)
+    draw_sun(painter=painter, center=(SUN_X, SUN_HEIGHTS[form]), radius=80)
+    Milo(hip=(680, 600)).draw(painter=painter, pose=CHEER_POSE)
 
     if form == PARTICIPLE:
-        draw_sparkle(painter=painter, center=(520, 360), size=36)
+        draw_sparkle(painter=painter, center=(SUN_X + 190, 280), size=36)
+        return
+
+    draw_arrow(painter=painter, start=(ARROW_X, 760), end=(ARROW_X, 580), color=GREEN)
+
+    if form == PAST:
+        paint_past_clock(painter=painter, center=(ARROW_X, 250))
 
 
 if __name__ == "__main__":

@@ -8,9 +8,23 @@ from character.milo.milo import Milo
 from painting.flat_painter import solid
 from verbs.props import draw_door, draw_footprints
 from verbs.render_verb import render_verb_from_command_line
-from verbs.tense import PARTICIPLE, PAST
+from verbs.tense import PARTICIPLE, PAST, paint_past_clock
 
-WALK_POSE_WAVING = Pose(lean=4, head_tilt=-6, left_arm=(-12, 0), right_arm=(150, 40), left_leg=(-20, 6), right_leg=(22, -12), eyes="happy")
+SUITCASE_COLOR = (184, 100, 70)
+SUITCASE_HANDLE_COLOR = (120, 70, 50)
+SUITCASE_HALF_WIDTH = 58
+SUITCASE_HALF_HEIGHT = 46
+SUITCASE_HANDLE_RADIUS = 32
+SUITCASE_HANDLE_GAP = 6    # Ring center above the suitcase top; the hand grips the ring top
+TRAVELING_POSE = Pose(
+    lean=4,
+    head_tilt=-6,
+    left_arm=(-28, 0),
+    right_arm=(125, 30),
+    left_leg=(-6, 0),
+    right_leg=(22, -12),
+    eyes="happy",
+)
 
 
 def paint_leave_scene(painter, form):
@@ -18,16 +32,45 @@ def paint_leave_scene(painter, form):
 
     if form == PARTICIPLE:
         draw_footprints(painter=painter, start=(380, 830), end=(660, 830), count=5)
-        Milo(hip=(800, 700), scale=0.5).draw(painter=painter, pose=Pose(right_arm=(150, 40)))
+        Milo(hip=(800, 700), scale=0.5).draw(
+            painter=painter,
+            pose=Pose(left_arm=(-28, 0), right_arm=(125, 30)),
+            before_arms=lambda skeleton: paint_suitcase_in_hand(painter=painter, hand=skeleton.left_hand, size=0.5),
+        )
         return
-    traveler = Milo(hip=(610, 600))
-    skeleton = traveler.draw(painter=painter, pose=WALK_POSE_WAVING)
-    suitcase_center = (skeleton.left_hand[0], skeleton.left_hand[1] + 36)
-    painter.fill_rounded_rect(box=(suitcase_center[0] - 48, suitcase_center[1] - 36, suitcase_center[0] + 48, suitcase_center[1] + 40), radius=10, shade=solid((184, 100, 70)))
-    painter.fill_stroke(start=(suitcase_center[0] - 20, suitcase_center[1] - 36), end=(suitcase_center[0] + 20, suitcase_center[1] - 36), width=12, shade=solid((120, 70, 50)))
+
+    Milo(hip=(610, 600)).draw(
+        painter=painter,
+        pose=TRAVELING_POSE,
+        before_arms=lambda skeleton: paint_suitcase_in_hand(painter=painter, hand=skeleton.left_hand),
+    )
 
     if form == PAST:
         draw_footprints(painter=painter, start=(400, 830), end=(480, 830), count=2)
+        paint_past_clock(painter=painter, center=(860, 230))
+
+
+def paint_suitcase_in_hand(
+    painter,
+    hand,
+    size=1.0,
+):
+    """The hand grips the top of a handle ring that stands on the suitcase."""
+    half_width = SUITCASE_HALF_WIDTH * size
+    half_height = SUITCASE_HALF_HEIGHT * size
+    handle_radius = SUITCASE_HANDLE_RADIUS * size
+    center = (hand[0], hand[1] + handle_radius + SUITCASE_HANDLE_GAP * size + half_height)
+    painter.fill_ring(
+        center=(center[0], center[1] - half_height - SUITCASE_HANDLE_GAP * size),
+        outer_radius=handle_radius,
+        inner_radius=handle_radius - 9 * size,
+        color=SUITCASE_HANDLE_COLOR,
+    )
+    painter.fill_rounded_rect(
+        box=(center[0] - half_width, center[1] - half_height, center[0] + half_width, center[1] + half_height),
+        radius=10 * size,
+        shade=solid(SUITCASE_COLOR),
+    )
 
 
 if __name__ == "__main__":

@@ -7,7 +7,7 @@ from character.figure import Pose
 from character.milo.milo import Milo
 from verbs.props import BLUE, draw_arrow, draw_bird, draw_sparkle, draw_wind_lines
 from verbs.render_verb import render_verb_from_command_line
-from verbs.tense import INFINITIVE, PARTICIPLE
+from verbs.tense import INFINITIVE, PARTICIPLE, paint_past_clock
 
 
 def paint_let_scene(painter, form):
@@ -27,6 +27,7 @@ def paint_let_scene(painter, form):
     else:
         draw_bird(painter=painter, center=(700, 300), size=0.8, color=BLUE)
         draw_wind_lines(painter=painter, origin=(610, 320), length=100, count=2)
+        paint_past_clock(painter=painter, center=(880, 180))
 
 
 if __name__ == "__main__":

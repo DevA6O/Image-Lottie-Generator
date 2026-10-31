@@ -356,18 +356,41 @@ def draw_pencil(
     painter,
     tip,
     angle,
+    size=1.0,
 ):
     """The pencil points to `tip`. The angle (0 right, 90 down) is the direction from the tip to the eraser."""
-    wood_end = move_point(point=tip, angle=angle, distance=46)
-    body_end = move_point(point=tip, angle=angle, distance=190)
-    eraser_end = move_point(point=tip, angle=angle, distance=222)
-    painter.fill_stroke(start=wood_end, end=body_end, width=34, shade=solid(YELLOW))
-    painter.fill_stroke(start=body_end, end=eraser_end, width=34, shade=solid(PINK))
-    side = move_point(point=(0, 0), angle=angle + 90, distance=17)
+    wood_end = move_point(point=tip, angle=angle, distance=46 * size)
+    body_end = move_point(point=tip, angle=angle, distance=190 * size)
+    eraser_end = move_point(point=tip, angle=angle, distance=222 * size)
+    painter.fill_stroke(start=wood_end, end=body_end, width=34 * size, shade=solid(YELLOW))
+    painter.fill_stroke(start=body_end, end=eraser_end, width=34 * size, shade=solid(PINK))
+    side = move_point(point=(0, 0), angle=angle + 90, distance=17 * size)
     painter.fill_polygon(
         points=[tip, (wood_end[0] + side[0], wood_end[1] + side[1]), (wood_end[0] - side[0], wood_end[1] - side[1])],
         shade=solid((240, 200, 150)),
     )
+
+
+def draw_pencil_in_hand(
+    painter,
+    hand,
+    tip,
+):
+    """The pencil lies in the hand and touches `tip`."""
+    angle = math.degrees(math.atan2(hand[1] - tip[1], hand[0] - tip[0]))
+    draw_pencil(painter=painter, tip=tip, angle=angle)
+
+
+def draw_lectern(
+    painter,
+    top_center,
+    width,
+    bottom_y,
+):
+    top_slab = (top_center[0] - width / 2 - 14, top_center[1], top_center[0] + width / 2 + 14, top_center[1] + 26)
+    body = (top_center[0] - width / 2, top_center[1] + 10, top_center[0] + width / 2, bottom_y)
+    painter.fill_rounded_rect(box=body, radius=12, shade=solid((184, 116, 66)))
+    painter.fill_rounded_rect(box=top_slab, radius=10, shade=solid(WOOD))
 
 
 def draw_door(
@@ -404,28 +427,33 @@ def draw_chair(
     painter,
     seat_center,
     size=1.0,
+    width_scale=1.0,
+    leg_length=150,
 ):
+    """A front view chair. leg_length is the distance from the seat center to the floor before scaling."""
+    across = size * width_scale
+
     for side in (-1, 1):
         painter.fill_stroke(
-            start=(seat_center[0] + side * 56 * size, seat_center[1]),
-            end=(seat_center[0] + side * 64 * size, seat_center[1] + 150 * size),
+            start=(seat_center[0] + side * 56 * across, seat_center[1]),
+            end=(seat_center[0] + side * 64 * across, seat_center[1] + leg_length * size),
             width=18 * size,
             shade=solid(BROWN),
         )
         painter.fill_stroke(
-            start=(seat_center[0] + side * 60 * size, seat_center[1]),
-            end=(seat_center[0] + side * 60 * size, seat_center[1] - 130 * size),
+            start=(seat_center[0] + side * 60 * across, seat_center[1]),
+            end=(seat_center[0] + side * 60 * across, seat_center[1] - 130 * size),
             width=18 * size,
             shade=solid(BROWN),
         )
 
     painter.fill_rounded_rect(
-        box=(seat_center[0] - 78 * size, seat_center[1] - 12 * size, seat_center[0] + 78 * size, seat_center[1] + 22 * size),
+        box=(seat_center[0] - 78 * across, seat_center[1] - 12 * size, seat_center[0] + 78 * across, seat_center[1] + 22 * size),
         radius=10 * size,
         shade=solid(WOOD),
     )
     painter.fill_rounded_rect(
-        box=(seat_center[0] - 70 * size, seat_center[1] - 138 * size, seat_center[0] + 70 * size, seat_center[1] - 100 * size),
+        box=(seat_center[0] - 70 * across, seat_center[1] - 138 * size, seat_center[0] + 70 * across, seat_center[1] - 100 * size),
         radius=10 * size,
         shade=solid(WOOD),
     )
@@ -623,13 +651,14 @@ def draw_scissors(
     open_angle=18,
     direction=-90,
 ):
-    """Blades point to `direction` (0 right, 90 down, -90 up) and open by `open_angle` degrees."""
+    """Blades point to `direction` (0 right, 90 down, -90 up) and open by `open_angle` degrees. The two blades cross at the pivot."""
     for sign in (-1, 1):
         blade_angle = direction + sign * open_angle
         blade_tip = move_point(point=pivot, angle=blade_angle, distance=190 * size)
+        handle_center = move_point(point=pivot, angle=blade_angle + 180, distance=84 * size)
+        painter.fill_stroke(start=handle_center, end=pivot, width=18 * size, shade=solid(RED))
+        painter.fill_ring(center=handle_center, outer_radius=36 * size, inner_radius=19 * size, color=RED)
         painter.fill_stroke(start=pivot, end=blade_tip, width=26 * size, shade=solid((200, 208, 224)))
-        handle_center = move_point(point=pivot, angle=blade_angle + 180 - sign * 14, distance=74 * size)
-        painter.fill_ring(center=handle_center, outer_radius=38 * size, inner_radius=20 * size, color=RED)
 
     painter.flat_circle(center=pivot, radius=11 * size, color=DARK_GRAY)
 
@@ -951,7 +980,7 @@ def draw_car_cabin(
 ):
     """The glass part of the car. Draw the character after it and the car body after the character."""
     painter.fill_polygon(
-        points=[(center[0] - 130, center[1] - 70), (center[0] - 84, center[1] - 190), (center[0] + 96, center[1] - 190), (center[0] + 150, center[1] - 70)],
+        points=[(center[0] - 170, center[1] - 70), (center[0] - 120, center[1] - 275), (center[0] + 110, center[1] - 275), (center[0] + 170, center[1] - 70)],
         shade=solid((190, 226, 252)),
     )
 

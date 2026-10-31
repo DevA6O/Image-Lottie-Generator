@@ -9,6 +9,11 @@ from verbs.props import draw_envelope, draw_heart, draw_paper, draw_pencil, draw
 from verbs.render_verb import render_verb_from_command_line
 from verbs.tense import INFINITIVE, PARTICIPLE, paint_past_clock
 
+PAPER_CENTER = (512, 560)
+PENCIL_TIP = (600, 594)    # The end of the last line
+PENCIL_SIZE = 0.6
+PENCIL_ANGLE = -65    # The eraser points up and to the right
+
 
 def paint_write_scene(painter, form):
     if form == PARTICIPLE:
@@ -20,13 +25,8 @@ def paint_write_scene(painter, form):
         return
 
     if form == INFINITIVE:
-        writing_pose = Pose(left_arm=(-14, 0), right_arm=(80, 120), eyes="closed", mouth="smile")
-        writer = Milo(hip=(400, 620))
-        skeleton = writer.build_skeleton(pose=writing_pose)
-        pencil_tip = (skeleton.right_hand[0] + 40, skeleton.right_hand[1] + 40)
-        draw_paper(painter=painter, center=(pencil_tip[0] + 120, pencil_tip[1] - 10), width=240, height=300, line_count=1)
-        writer.draw(painter=painter, pose=writing_pose)
-        draw_pencil(painter=painter, tip=pencil_tip, angle=-50)
+        draw_paper(painter=painter, center=PAPER_CENTER, width=300, height=400, line_count=3)
+        draw_pencil(painter=painter, tip=PENCIL_TIP, angle=PENCIL_ANGLE, size=PENCIL_SIZE)
     else:
         Milo(hip=(400, 620)).draw(painter=painter, pose=Pose(left_arm=(-20, 0), right_arm=(20, 0), eyes="happy", mouth="grin"))
         draw_paper(painter=painter, center=(780, 560), width=240, height=300, line_count=5)

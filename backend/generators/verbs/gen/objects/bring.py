@@ -5,10 +5,14 @@ Run it with the form number: 0 = infinitive, 1 = past, 2 = past participle.
 """
 from character.figure import Pose
 from character.milo.milo import Milo
+from character.poses import CARRY_LEFT_ARM, CARRY_RIGHT_ARM
 from painting.flat_painter import solid
+from verbs.held_gift import paint_held_gift
 from verbs.props import BLUE, BROWN, RED, draw_arrow, draw_gift_box, draw_wind_lines
 from verbs.render_verb import render_verb_from_command_line
-from verbs.tense import INFINITIVE, PARTICIPLE
+from verbs.tense import INFINITIVE, PARTICIPLE, paint_past_clock
+
+HOUSE_X = 800
 
 
 def _draw_house(
@@ -25,23 +29,29 @@ def _draw_house(
 
 
 def paint_bring_scene(painter, form):
-    house_x = 800
+    _draw_house(painter=painter, bottom_center=(HOUSE_X, 836))
 
     if form == PARTICIPLE:
-        _draw_house(painter=painter, bottom_center=(house_x, 836))
         Milo(hip=(440, 620)).draw(painter=painter, pose=Pose(eyes="happy", mouth="grin", left_arm=(-50, 100), right_arm=(50, -100)))
-        draw_gift_box(painter=painter, center=(620, 790), size=0.7)
+        draw_gift_box(painter=painter, center=(640, 790), size=0.7)
         return
 
-    walking_pose = Pose(lean=6, left_arm=(60, 90), right_arm=(70, 90), left_leg=(-24, 6), right_leg=(26, -14), mouth="smile")
-    skeleton = Milo(hip=(400 if form == INFINITIVE else 480, 620)).draw(painter=painter, pose=walking_pose)
-    draw_gift_box(painter=painter, center=(skeleton.right_hand[0] + 10, skeleton.right_hand[1] - 70), size=0.7)
-    _draw_house(painter=painter, bottom_center=(house_x, 836))
+    walking_pose = Pose(
+        lean=6,
+        left_arm=CARRY_LEFT_ARM,
+        right_arm=CARRY_RIGHT_ARM,
+        left_leg=(-24, 6),
+        right_leg=(26, -14),
+        mouth="smile",
+    )
+    hip_x = 400 if form == INFINITIVE else 470
+    Milo(hip=(hip_x, 620)).draw(painter=painter, pose=walking_pose, before_arms=lambda skeleton: paint_held_gift(painter=painter, skeleton=skeleton))
 
     if form == INFINITIVE:
-        draw_arrow(painter=painter, start=(480, 300), end=(680, 300), color=BLUE)
+        draw_arrow(painter=painter, start=(480, 190), end=(680, 190), color=BLUE)
     else:
         draw_wind_lines(painter=painter, origin=(250, 560), length=140, count=3)
+        paint_past_clock(painter=painter, center=(760, 250))
 
 
 if __name__ == "__main__":

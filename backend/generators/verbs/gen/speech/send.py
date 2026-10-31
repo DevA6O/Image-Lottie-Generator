@@ -8,7 +8,7 @@ from character.milo.milo import Milo
 from painting.flat_painter import solid
 from verbs.props import GREEN, RED, draw_check_mark, draw_envelope, draw_paper_plane, draw_wind_lines
 from verbs.render_verb import render_verb_from_command_line
-from verbs.tense import INFINITIVE, PARTICIPLE
+from verbs.tense import INFINITIVE, PARTICIPLE, paint_past_clock
 
 
 def paint_send_scene(painter, form):
@@ -29,6 +29,7 @@ def paint_send_scene(painter, form):
         draw_wind_lines(painter=painter, origin=(660, 330), length=150, count=3)
         draw_envelope(painter=painter, center=(780, 320), width=170, height=116)
         painter.fill_circle(center=(780, 340), radius=16, shade=solid(RED))
+        paint_past_clock(painter=painter, center=(800, 160))
 
 
 if __name__ == "__main__":

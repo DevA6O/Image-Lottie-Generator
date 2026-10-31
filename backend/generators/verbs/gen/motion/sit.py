@@ -7,24 +7,46 @@ from character.figure import Pose
 from character.milo.milo import Milo
 from verbs.props import BLUE, WHITE, draw_arrow, draw_chair, draw_sparkle
 from verbs.render_verb import render_verb_from_command_line
-from verbs.tense import INFINITIVE, PAST
+from verbs.tense import INFINITIVE, PAST, paint_past_clock
 
-SITTING_LEFT_LEG = (-35, 35)
-SITTING_RIGHT_LEG = (35, -35)
+CHAIR_CENTER = (512, 685)
+CHAIR_SIZE = 1.5
+CHAIR_LEG_LENGTH = 95    # The seat is as low as the shins, so the feet stand on the floor
+SEATED_HIP = (512, 660)
+SEATED_LEG_FORESHORTENING = 0.35    # The thighs point toward the viewer
+SITTING_LEFT_LEG = (-8, 8)
+SITTING_RIGHT_LEG = (8, -8)
+LOWERING_HIP_RISE = 70
 
 
 def paint_sit_scene(painter, form):
-    draw_chair(painter=painter, seat_center=(512, 700))
+    draw_chair(painter=painter, seat_center=CHAIR_CENTER, size=CHAIR_SIZE, leg_length=CHAIR_LEG_LENGTH)
 
     if form == INFINITIVE:
-        Milo(hip=(512, 590)).draw(painter=painter, pose=Pose(mouth="open", left_leg=SITTING_LEFT_LEG, right_leg=SITTING_RIGHT_LEG))
-        draw_arrow(painter=painter, start=(820, 460), end=(820, 640), color=BLUE)
+        lowering_pose = Pose(mouth="open", left_leg=(-14, 14), right_leg=(14, -14), left_arm=(-24, 0), right_arm=(24, 0), thigh_factor=0.7, lean=-6)
+        Milo(hip=(SEATED_HIP[0], SEATED_HIP[1] - LOWERING_HIP_RISE)).draw(painter=painter, pose=lowering_pose)
+        draw_arrow(painter=painter, start=(840, 440), end=(840, 640), color=BLUE)
     elif form == PAST:
-        Milo(hip=(512, 640)).draw(painter=painter, pose=Pose(eyes="happy", left_leg=SITTING_LEFT_LEG, right_leg=SITTING_RIGHT_LEG))
+        Milo(hip=SEATED_HIP).draw(painter=painter, pose=build_seated_pose(eyes="happy", mouth="smile"))
+        paint_past_clock(painter=painter, center=(830, 230))
     else:
-        relaxed_pose = Pose(left_arm=(-24, 10), right_arm=(24, -10), eyes="closed", mouth="smile", left_leg=SITTING_LEFT_LEG, right_leg=SITTING_RIGHT_LEG)
-        Milo(hip=(512, 640)).draw(painter=painter, pose=relaxed_pose)
+        Milo(hip=SEATED_HIP).draw(painter=painter, pose=build_seated_pose(eyes="closed", mouth="smile"))
         draw_sparkle(painter=painter, center=(790, 520), size=34, color=WHITE)
+
+
+def build_seated_pose(
+    eyes,
+    mouth,
+):
+    return Pose(
+        left_arm=(-24, 10),
+        right_arm=(24, -10),
+        left_leg=SITTING_LEFT_LEG,
+        right_leg=SITTING_RIGHT_LEG,
+        thigh_factor=SEATED_LEG_FORESHORTENING,
+        eyes=eyes,
+        mouth=mouth,
+    )
 
 
 if __name__ == "__main__":

@@ -8,19 +8,22 @@ from character.milo.milo import Milo
 from character.poses import STAND_HIP
 from verbs.props import draw_check_mark, draw_heart, draw_speech_bubble, draw_text_lines
 from verbs.render_verb import render_verb_from_command_line
-from verbs.tense import INFINITIVE, PAST
+from verbs.tense import INFINITIVE, PAST, paint_past_clock
+
+BUBBLE_CENTER = (430, 140)
 
 
 def paint_say_scene(painter, form):
     Milo(hip=STAND_HIP).draw(painter=painter, pose=Pose(left_arm=(-50, 100), right_arm=(100, 20), mouth="open", head_tilt=-4))
-    draw_speech_bubble(painter=painter, center=(430, 190), width=420, height=170, tail_tip=(480, 330))
+    draw_speech_bubble(painter=painter, center=BUBBLE_CENTER, width=420, height=150, tail_tip=(450, 246))
 
     if form == INFINITIVE:
-        draw_text_lines(painter=painter, center=(430, 190), width=300, count=2)
+        draw_text_lines(painter=painter, center=BUBBLE_CENTER, width=300, count=2)
     elif form == PAST:
-        draw_heart(painter=painter, center=(430, 190), size=56)
+        draw_heart(painter=painter, center=BUBBLE_CENTER, size=50)
+        paint_past_clock(painter=painter, center=(820, 230))
     else:
-        draw_check_mark(painter=painter, center=(430, 190), size=50)
+        draw_check_mark(painter=painter, center=BUBBLE_CENTER, size=46)
 
 
 if __name__ == "__main__":

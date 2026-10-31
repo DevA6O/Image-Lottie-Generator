@@ -53,6 +53,7 @@ class Pose:
     eyes: str = "open"      # open, wide, up, side, happy, closed
     mouth: str = "smile"    # smile, sad, open, o, flat, grin
     brows: str = "none"     # none, raised, worry, angry
+    thigh_factor: float = 1.0    # Below 1 the thighs point toward the viewer, so a seated body shows short thighs
 
 
 @dataclass(frozen=True)
@@ -143,7 +144,7 @@ class Figure:
         legs = {}
         for side, leg in ((LEFT, pose.left_leg), (RIGHT, pose.right_leg)):
             hip_joint = _add(self.hip, sideways, side * HIP_HALF_WIDTH * scale)
-            knee = _add(hip_joint, build_direction(leg[0]), THIGH_LENGTH * scale)
+            knee = _add(hip_joint, build_direction(leg[0]), THIGH_LENGTH * pose.thigh_factor * scale)
             ankle = _add(knee, build_direction(leg[0] + leg[1]), SHIN_LENGTH * scale)
             legs[side] = (hip_joint, knee, ankle)
 

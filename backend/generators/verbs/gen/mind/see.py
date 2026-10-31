@@ -22,9 +22,9 @@ def paint_see_scene(painter, form):
         paint_past_clock(painter=painter, center=(800, 150))
     else:
         Milo(hip=STAND_HIP).draw(painter=painter, pose=Pose(left_arm=(-50, 100), right_arm=(50, -100), eyes="happy", mouth="smile"))
-        draw_speech_bubble(painter=painter, center=(430, 190), width=380, height=170, tail_tip=(480, 320))
-        draw_eye(painter=painter, center=(360, 190), size=0.5)
-        draw_check_mark(painter=painter, center=(520, 195), size=36)
+        draw_speech_bubble(painter=painter, center=(430, 140), width=380, height=150, tail_tip=(470, 246))
+        draw_eye(painter=painter, center=(360, 140), size=0.5)
+        draw_check_mark(painter=painter, center=(520, 145), size=36)
 
 
 if __name__ == "__main__":

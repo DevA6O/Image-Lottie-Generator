@@ -7,27 +7,32 @@ from character.figure import Pose
 from character.milo.milo import Milo
 from verbs.props import BLUE, ORANGE, draw_arrow, draw_chair, draw_flag
 from verbs.render_verb import render_verb_from_command_line
-from verbs.tense import INFINITIVE, PAST
+from verbs.tense import INFINITIVE, PAST, paint_past_clock
+
+SIDE_CHAIR_CENTER = (230, 684)
+STANDING_HIP = (560, 620)
+PUSHED_BACK_CHAIR_CENTER = (330, 684)
+HAND_ON_BACKREST_ARM = (-70, 0)    # Straight, the hand reaches the top of the chair back
+HANDS_ON_HIPS_LEFT_ARM = (-50, 100)
+HANDS_ON_HIPS_RIGHT_ARM = (50, -100)
 
 
 def paint_stand_scene(painter, form):
-
     if form == INFINITIVE:
-        draw_chair(painter=painter, seat_center=(300, 690))
-        rising_pose = Pose(lean=14, left_arm=(45, 10), right_arm=(60, 10), left_leg=(-20, 25), right_leg=(16, 20), mouth="open")
-        Milo(hip=(480, 560)).draw(painter=painter, pose=rising_pose)
-        draw_arrow(painter=painter, start=(800, 720), end=(800, 540), color=BLUE)
+        draw_chair(painter=painter, seat_center=PUSHED_BACK_CHAIR_CENTER)
+        standing_up_pose = Pose(left_arm=HAND_ON_BACKREST_ARM, right_arm=(14, 0), eyes="happy", mouth="grin")
+        Milo(hip=STANDING_HIP).draw(painter=painter, pose=standing_up_pose)
+        draw_arrow(painter=painter, start=(860, 700), end=(860, 480), color=BLUE)
         return
 
-    hands_on_hips_pose = Pose(left_arm=(-50, 100), right_arm=(50, -100), mouth="grin")
+    draw_chair(painter=painter, seat_center=SIDE_CHAIR_CENTER)
 
     if form == PAST:
-        draw_chair(painter=painter, seat_center=(250, 690))
-        Milo(hip=(550, 600)).draw(painter=painter, pose=hands_on_hips_pose)
-        return
-
-    Milo(hip=(512, 600)).draw(painter=painter, pose=Pose(left_arm=(-50, 100), right_arm=(120, 70), eyes="happy", mouth="grin"))
-    draw_flag(painter=painter, pole_bottom=(760, 836), pole_height=300, width=130, height=84, color=ORANGE)
+        Milo(hip=STANDING_HIP).draw(painter=painter, pose=Pose(mouth="grin", left_arm=HANDS_ON_HIPS_LEFT_ARM, right_arm=HANDS_ON_HIPS_RIGHT_ARM))
+        paint_past_clock(painter=painter, center=(850, 230))
+    else:
+        Milo(hip=STANDING_HIP).draw(painter=painter, pose=Pose(left_arm=(-50, 100), right_arm=(120, 70), eyes="happy", mouth="grin"))
+        draw_flag(painter=painter, pole_bottom=(860, 836), pole_height=300, width=130, height=84, color=ORANGE)
 
 
 if __name__ == "__main__":

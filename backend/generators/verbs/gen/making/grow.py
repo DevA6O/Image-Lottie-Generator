@@ -7,7 +7,7 @@ from character.figure import Pose
 from character.milo.milo import Milo
 from verbs.props import draw_plant, draw_sparkle
 from verbs.render_verb import render_verb_from_command_line
-from verbs.tense import PARTICIPLE
+from verbs.tense import PARTICIPLE, PAST, paint_past_clock
 
 
 def paint_grow_scene(painter, form):
@@ -22,6 +22,9 @@ def paint_grow_scene(painter, form):
 
     if form != PARTICIPLE:
         draw_sparkle(painter=painter, center=(880, 540), size=30)
+
+    if form == PAST:
+        paint_past_clock(painter=painter, center=(740, 230))
 
 
 if __name__ == "__main__":

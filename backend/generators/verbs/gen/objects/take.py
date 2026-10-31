@@ -5,24 +5,38 @@ Run it with the form number: 0 = infinitive, 1 = past, 2 = past participle.
 """
 from character.figure import Pose
 from character.milo.milo import Milo
+from character.poses import CARRY_LEFT_ARM, CARRY_RIGHT_ARM
 from painting.flat_painter import solid
-from verbs.props import WOOD, draw_gift_box, draw_wind_lines
+from verbs.held_gift import paint_held_gift
+from verbs.props import WOOD, draw_gift_box, draw_heart, draw_sparkle
 from verbs.render_verb import render_verb_from_command_line
-from verbs.tense import INFINITIVE, PAST
+from verbs.tense import INFINITIVE, PAST, paint_past_clock
+
+MILO_HIP = (330, 620)
+REACHING_ARM = (95, 0)    # Straight, the hand touches the side of the gift on the shelf
+GIFT_SIZE_ON_SHELF = 0.75
+GIFT_CENTER_ON_SHELF = (610, 462)
+SHELF_TOP_Y = 514
+SHELF_HALF_WIDTH = 140
 
 
 def paint_take_scene(painter, form):
+    shelf_box = (GIFT_CENTER_ON_SHELF[0] - SHELF_HALF_WIDTH, SHELF_TOP_Y, GIFT_CENTER_ON_SHELF[0] + SHELF_HALF_WIDTH, SHELF_TOP_Y + 30)
+    painter.fill_rounded_rect(box=shelf_box, radius=8, shade=solid(WOOD))
+
     if form == INFINITIVE:
-        painter.fill_rounded_rect(box=(660, 560, 900, 590), radius=8, shade=solid(WOOD))
-        draw_gift_box(painter=painter, center=(780, 500), size=0.75)
-        Milo(hip=(360, 620)).draw(painter=painter, pose=Pose(left_arm=(-14, 0), right_arm=(100, 5), eyes="side", mouth="open"))
-    elif form == PAST:
-        skeleton = Milo(hip=(460, 620)).draw(painter=painter, pose=Pose(left_arm=(70, 20), right_arm=(110, 10), eyes="happy", mouth="grin"))
-        draw_gift_box(painter=painter, center=(skeleton.right_hand[0] + 30, skeleton.right_hand[1] - 40), size=0.7)
+        draw_gift_box(painter=painter, center=GIFT_CENTER_ON_SHELF, size=GIFT_SIZE_ON_SHELF)
+        Milo(hip=MILO_HIP).draw(painter=painter, pose=Pose(left_arm=(-14, 0), right_arm=REACHING_ARM, eyes="side", mouth="open"))
+        return
+
+    pose = Pose(left_arm=CARRY_LEFT_ARM, right_arm=CARRY_RIGHT_ARM, eyes="happy", mouth="grin")
+    Milo(hip=MILO_HIP).draw(painter=painter, pose=pose, before_arms=lambda skeleton: paint_held_gift(painter=painter, skeleton=skeleton))
+
+    if form == PAST:
+        paint_past_clock(painter=painter, center=(800, 300))
     else:
-        Milo(hip=(420, 620)).draw(painter=painter, pose=Pose(left_arm=(70, 30), right_arm=(110, 10), eyes="happy", mouth="grin"))
-        draw_gift_box(painter=painter, center=(560, 560), size=0.8)
-        draw_wind_lines(painter=painter, origin=(200, 560), length=120, count=2)
+        draw_heart(painter=painter, center=(800, 300), size=40)
+        draw_sparkle(painter=painter, center=(640, 330), size=30)
 
 
 if __name__ == "__main__":

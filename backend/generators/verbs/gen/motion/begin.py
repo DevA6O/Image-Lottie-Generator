@@ -8,7 +8,7 @@ from character.milo.milo import Milo
 from character.poses import CHEER_POSE, RUN_POSE
 from verbs.props import GREEN, draw_flag, draw_sparkle, draw_wind_lines
 from verbs.render_verb import render_verb_from_command_line
-from verbs.tense import INFINITIVE, PAST
+from verbs.tense import INFINITIVE, PAST, paint_past_clock
 
 
 def paint_begin_scene(painter, form):
@@ -18,8 +18,9 @@ def paint_begin_scene(painter, form):
         ready_pose = Pose(lean=22, left_arm=(-60, -20), right_arm=(40, 20), left_leg=(-30, 40), right_leg=(35, -30), mouth="grin")
         Milo(hip=(480, 600)).draw(painter=painter, pose=ready_pose)
     elif form == PAST:
-        draw_wind_lines(painter=painter, origin=(520, 520), length=200, count=3)
+        draw_wind_lines(painter=painter, origin=(500, 430), length=130, count=3)
         Milo(hip=(680, 570)).draw(painter=painter, pose=RUN_POSE)
+        paint_past_clock(painter=painter, center=(420, 230))
     else:
         Milo(hip=(520, 600)).draw(painter=painter, pose=CHEER_POSE)
         draw_sparkle(painter=painter, center=(760, 380), size=40)

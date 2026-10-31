@@ -1,6 +1,472 @@
 {
   "categories": [
     {
+      "id": "animals",
+      "title": "Animals",
+      "items": [
+        {
+          "title": "Dog",
+          "kind": "image",
+          "file": "results/animals/dog.png"
+        },
+        {
+          "title": "Cat",
+          "kind": "image",
+          "file": "results/animals/cat.png"
+        },
+        {
+          "title": "Rabbit",
+          "kind": "image",
+          "file": "results/animals/rabbit.png"
+        },
+        {
+          "title": "Guinea Pig",
+          "kind": "image",
+          "file": "results/animals/guinea_pig.png"
+        },
+        {
+          "title": "Hamster",
+          "kind": "image",
+          "file": "results/animals/hamster.png"
+        },
+        {
+          "title": "Budgerigar",
+          "kind": "image",
+          "file": "results/animals/budgerigar.png"
+        },
+        {
+          "title": "Goldfish",
+          "kind": "image",
+          "file": "results/animals/goldfish.png"
+        },
+        {
+          "title": "Turtle",
+          "kind": "image",
+          "file": "results/animals/turtle.png"
+        },
+        {
+          "title": "Cow",
+          "kind": "image",
+          "file": "results/animals/cow.png"
+        },
+        {
+          "title": "Pig",
+          "kind": "image",
+          "file": "results/animals/pig.png"
+        },
+        {
+          "title": "Horse",
+          "kind": "image",
+          "file": "results/animals/horse.png"
+        },
+        {
+          "title": "Sheep",
+          "kind": "image",
+          "file": "results/animals/sheep.png"
+        },
+        {
+          "title": "Goat",
+          "kind": "image",
+          "file": "results/animals/goat.png"
+        },
+        {
+          "title": "Chicken",
+          "kind": "image",
+          "file": "results/animals/chicken.png"
+        },
+        {
+          "title": "Duck",
+          "kind": "image",
+          "file": "results/animals/duck.png"
+        },
+        {
+          "title": "Goose",
+          "kind": "image",
+          "file": "results/animals/goose.png"
+        },
+        {
+          "title": "Donkey",
+          "kind": "image",
+          "file": "results/animals/donkey.png"
+        },
+        {
+          "title": "Turkey",
+          "kind": "image",
+          "file": "results/animals/turkey.png"
+        },
+        {
+          "title": "Roe Deer",
+          "kind": "image",
+          "file": "results/animals/deer.png"
+        },
+        {
+          "title": "Red Deer",
+          "kind": "image",
+          "file": "results/animals/red_deer.png"
+        },
+        {
+          "title": "Wild Boar",
+          "kind": "image",
+          "file": "results/animals/wild_boar.png"
+        },
+        {
+          "title": "Fox",
+          "kind": "image",
+          "file": "results/animals/fox.png"
+        },
+        {
+          "title": "Hare",
+          "kind": "image",
+          "file": "results/animals/hare.png"
+        },
+        {
+          "title": "Squirrel",
+          "kind": "image",
+          "file": "results/animals/squirrel.png"
+        },
+        {
+          "title": "Hedgehog",
+          "kind": "image",
+          "file": "results/animals/hedgehog.png"
+        },
+        {
+          "title": "Badger",
+          "kind": "image",
+          "file": "results/animals/badger.png"
+        },
+        {
+          "title": "Wolf",
+          "kind": "image",
+          "file": "results/animals/wolf.png"
+        },
+        {
+          "title": "Lynx",
+          "kind": "image",
+          "file": "results/animals/lynx.png"
+        },
+        {
+          "title": "Beaver",
+          "kind": "image",
+          "file": "results/animals/beaver.png"
+        },
+        {
+          "title": "Mouse",
+          "kind": "image",
+          "file": "results/animals/mouse.png"
+        },
+        {
+          "title": "Bat",
+          "kind": "image",
+          "file": "results/animals/bat.png"
+        },
+        {
+          "title": "Blackbird",
+          "kind": "image",
+          "file": "results/animals/blackbird.png"
+        },
+        {
+          "title": "Sparrow",
+          "kind": "image",
+          "file": "results/animals/sparrow.png"
+        },
+        {
+          "title": "Tit",
+          "kind": "image",
+          "file": "results/animals/tit.png"
+        },
+        {
+          "title": "Pigeon",
+          "kind": "image",
+          "file": "results/animals/pigeon.png"
+        },
+        {
+          "title": "Raven",
+          "kind": "image",
+          "file": "results/animals/raven.png"
+        },
+        {
+          "title": "Crow",
+          "kind": "image",
+          "file": "results/animals/crow.png"
+        },
+        {
+          "title": "Magpie",
+          "kind": "image",
+          "file": "results/animals/magpie.png"
+        },
+        {
+          "title": "Stork",
+          "kind": "image",
+          "file": "results/animals/stork.png"
+        },
+        {
+          "title": "Eagle",
+          "kind": "image",
+          "file": "results/animals/eagle.png"
+        },
+        {
+          "title": "Owl",
+          "kind": "image",
+          "file": "results/animals/owl.png"
+        },
+        {
+          "title": "Woodpecker",
+          "kind": "image",
+          "file": "results/animals/woodpecker.png"
+        },
+        {
+          "title": "Swan",
+          "kind": "image",
+          "file": "results/animals/swan.png"
+        },
+        {
+          "title": "Seagull",
+          "kind": "image",
+          "file": "results/animals/seagull.png"
+        },
+        {
+          "title": "Parrot",
+          "kind": "image",
+          "file": "results/animals/parrot.png"
+        },
+        {
+          "title": "Penguin",
+          "kind": "image",
+          "file": "results/animals/penguin.png"
+        },
+        {
+          "title": "Ostrich",
+          "kind": "image",
+          "file": "results/animals/ostrich.png"
+        },
+        {
+          "title": "Lion",
+          "kind": "image",
+          "file": "results/animals/lion.png"
+        },
+        {
+          "title": "Tiger",
+          "kind": "image",
+          "file": "results/animals/tiger.png"
+        },
+        {
+          "title": "Elephant",
+          "kind": "image",
+          "file": "results/animals/elephant.png"
+        },
+        {
+          "title": "Giraffe",
+          "kind": "image",
+          "file": "results/animals/giraffe.png"
+        },
+        {
+          "title": "Zebra",
+          "kind": "image",
+          "file": "results/animals/zebra.png"
+        },
+        {
+          "title": "Rhino",
+          "kind": "image",
+          "file": "results/animals/rhino.png"
+        },
+        {
+          "title": "Hippo",
+          "kind": "image",
+          "file": "results/animals/hippo.png"
+        },
+        {
+          "title": "Monkey",
+          "kind": "image",
+          "file": "results/animals/monkey.png"
+        },
+        {
+          "title": "Gorilla",
+          "kind": "image",
+          "file": "results/animals/gorilla.png"
+        },
+        {
+          "title": "Kangaroo",
+          "kind": "image",
+          "file": "results/animals/kangaroo.png"
+        },
+        {
+          "title": "Koala",
+          "kind": "image",
+          "file": "results/animals/koala.png"
+        },
+        {
+          "title": "Bear",
+          "kind": "image",
+          "file": "results/animals/bear.png"
+        },
+        {
+          "title": "Polar Bear",
+          "kind": "image",
+          "file": "results/animals/polar_bear.png"
+        },
+        {
+          "title": "Panda",
+          "kind": "image",
+          "file": "results/animals/panda.png"
+        },
+        {
+          "title": "Camel",
+          "kind": "image",
+          "file": "results/animals/camel.png"
+        },
+        {
+          "title": "Crocodile",
+          "kind": "image",
+          "file": "results/animals/crocodile.png"
+        },
+        {
+          "title": "Leopard",
+          "kind": "image",
+          "file": "results/animals/leopard.png"
+        },
+        {
+          "title": "Cheetah",
+          "kind": "image",
+          "file": "results/animals/cheetah.png"
+        },
+        {
+          "title": "Whale",
+          "kind": "image",
+          "file": "results/animals/whale.png"
+        },
+        {
+          "title": "Dolphin",
+          "kind": "image",
+          "file": "results/animals/dolphin.png"
+        },
+        {
+          "title": "Shark",
+          "kind": "image",
+          "file": "results/animals/shark.png"
+        },
+        {
+          "title": "Seal",
+          "kind": "image",
+          "file": "results/animals/seal.png"
+        },
+        {
+          "title": "Harbor Seal",
+          "kind": "image",
+          "file": "results/animals/harbor_seal.png"
+        },
+        {
+          "title": "Octopus",
+          "kind": "image",
+          "file": "results/animals/octopus.png"
+        },
+        {
+          "title": "Jellyfish",
+          "kind": "image",
+          "file": "results/animals/jellyfish.png"
+        },
+        {
+          "title": "Crab",
+          "kind": "image",
+          "file": "results/animals/crab.png"
+        },
+        {
+          "title": "Lobster",
+          "kind": "image",
+          "file": "results/animals/lobster.png"
+        },
+        {
+          "title": "Starfish",
+          "kind": "image",
+          "file": "results/animals/starfish.png"
+        },
+        {
+          "title": "Snake",
+          "kind": "image",
+          "file": "results/animals/snake.png"
+        },
+        {
+          "title": "Lizard",
+          "kind": "image",
+          "file": "results/animals/lizard.png"
+        },
+        {
+          "title": "Frog",
+          "kind": "image",
+          "file": "results/animals/frog.png"
+        },
+        {
+          "title": "Toad",
+          "kind": "image",
+          "file": "results/animals/toad.png"
+        },
+        {
+          "title": "Chameleon",
+          "kind": "image",
+          "file": "results/animals/chameleon.png"
+        },
+        {
+          "title": "Iguana",
+          "kind": "image",
+          "file": "results/animals/iguana.png"
+        },
+        {
+          "title": "Bee",
+          "kind": "image",
+          "file": "results/animals/bee.png"
+        },
+        {
+          "title": "Wasp",
+          "kind": "image",
+          "file": "results/animals/wasp.png"
+        },
+        {
+          "title": "Ant",
+          "kind": "image",
+          "file": "results/animals/ant.png"
+        },
+        {
+          "title": "Butterfly",
+          "kind": "image",
+          "file": "results/animals/butterfly.png"
+        },
+        {
+          "title": "Ladybug",
+          "kind": "image",
+          "file": "results/animals/ladybug.png"
+        },
+        {
+          "title": "Fly",
+          "kind": "image",
+          "file": "results/animals/fly.png"
+        },
+        {
+          "title": "Mosquito",
+          "kind": "image",
+          "file": "results/animals/mosquito.png"
+        },
+        {
+          "title": "Spider",
+          "kind": "image",
+          "file": "results/animals/spider.png"
+        },
+        {
+          "title": "Snail",
+          "kind": "image",
+          "file": "results/animals/snail.png"
+        },
+        {
+          "title": "Earthworm",
+          "kind": "image",
+          "file": "results/animals/earthworm.png"
+        },
+        {
+          "title": "Grasshopper",
+          "kind": "image",
+          "file": "results/animals/grasshopper.png"
+        }
+      ]
+    },
+    {
       "id": "character",
       "title": "Characters",
       "items": [
@@ -384,6 +850,21 @@
           "file": "results/verbs/go_participle.png"
         },
         {
+          "title": "Come (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/come_infinitive.png"
+        },
+        {
+          "title": "Came (past)",
+          "kind": "image",
+          "file": "results/verbs/come_past.png"
+        },
+        {
+          "title": "Come (past participle)",
+          "kind": "image",
+          "file": "results/verbs/come_participle.png"
+        },
+        {
           "title": "Run (infinitive)",
           "kind": "image",
           "file": "results/verbs/run_infinitive.png"
@@ -412,6 +893,96 @@
           "title": "Fallen (past participle)",
           "kind": "image",
           "file": "results/verbs/fall_participle.png"
+        },
+        {
+          "title": "Rise (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/rise_infinitive.png"
+        },
+        {
+          "title": "Rose (past)",
+          "kind": "image",
+          "file": "results/verbs/rise_past.png"
+        },
+        {
+          "title": "Risen (past participle)",
+          "kind": "image",
+          "file": "results/verbs/rise_participle.png"
+        },
+        {
+          "title": "Leave (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/leave_infinitive.png"
+        },
+        {
+          "title": "Left (past)",
+          "kind": "image",
+          "file": "results/verbs/leave_past.png"
+        },
+        {
+          "title": "Left (past participle)",
+          "kind": "image",
+          "file": "results/verbs/leave_participle.png"
+        },
+        {
+          "title": "Drive (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/drive_infinitive.png"
+        },
+        {
+          "title": "Drove (past)",
+          "kind": "image",
+          "file": "results/verbs/drive_past.png"
+        },
+        {
+          "title": "Driven (past participle)",
+          "kind": "image",
+          "file": "results/verbs/drive_participle.png"
+        },
+        {
+          "title": "Stand (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/stand_infinitive.png"
+        },
+        {
+          "title": "Stood (past)",
+          "kind": "image",
+          "file": "results/verbs/stand_past.png"
+        },
+        {
+          "title": "Stood (past participle)",
+          "kind": "image",
+          "file": "results/verbs/stand_participle.png"
+        },
+        {
+          "title": "Sit (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/sit_infinitive.png"
+        },
+        {
+          "title": "Sat (past)",
+          "kind": "image",
+          "file": "results/verbs/sit_past.png"
+        },
+        {
+          "title": "Sat (past participle)",
+          "kind": "image",
+          "file": "results/verbs/sit_participle.png"
+        },
+        {
+          "title": "Begin (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/begin_infinitive.png"
+        },
+        {
+          "title": "Began (past)",
+          "kind": "image",
+          "file": "results/verbs/begin_past.png"
+        },
+        {
+          "title": "Begun (past participle)",
+          "kind": "image",
+          "file": "results/verbs/begin_participle.png"
         },
         {
           "title": "Know (infinitive)",
@@ -444,6 +1015,66 @@
           "file": "results/verbs/think_participle.png"
         },
         {
+          "title": "Understand (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/understand_infinitive.png"
+        },
+        {
+          "title": "Understood (past)",
+          "kind": "image",
+          "file": "results/verbs/understand_past.png"
+        },
+        {
+          "title": "Understood (past participle)",
+          "kind": "image",
+          "file": "results/verbs/understand_participle.png"
+        },
+        {
+          "title": "Mean (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/mean_infinitive.png"
+        },
+        {
+          "title": "Meant (past)",
+          "kind": "image",
+          "file": "results/verbs/mean_past.png"
+        },
+        {
+          "title": "Meant (past participle)",
+          "kind": "image",
+          "file": "results/verbs/mean_participle.png"
+        },
+        {
+          "title": "Feel (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/feel_infinitive.png"
+        },
+        {
+          "title": "Felt (past)",
+          "kind": "image",
+          "file": "results/verbs/feel_past.png"
+        },
+        {
+          "title": "Felt (past participle)",
+          "kind": "image",
+          "file": "results/verbs/feel_participle.png"
+        },
+        {
+          "title": "Choose (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/choose_infinitive.png"
+        },
+        {
+          "title": "Chose (past)",
+          "kind": "image",
+          "file": "results/verbs/choose_past.png"
+        },
+        {
+          "title": "Chosen (past participle)",
+          "kind": "image",
+          "file": "results/verbs/choose_participle.png"
+        },
+        {
           "title": "See (infinitive)",
           "kind": "image",
           "file": "results/verbs/see_infinitive.png"
@@ -457,6 +1088,96 @@
           "title": "Seen (past participle)",
           "kind": "image",
           "file": "results/verbs/see_participle.png"
+        },
+        {
+          "title": "Hear (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/hear_infinitive.png"
+        },
+        {
+          "title": "Heard (past)",
+          "kind": "image",
+          "file": "results/verbs/hear_past.png"
+        },
+        {
+          "title": "Heard (past participle)",
+          "kind": "image",
+          "file": "results/verbs/hear_participle.png"
+        },
+        {
+          "title": "Find (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/find_infinitive.png"
+        },
+        {
+          "title": "Found (past)",
+          "kind": "image",
+          "file": "results/verbs/find_past.png"
+        },
+        {
+          "title": "Found (past participle)",
+          "kind": "image",
+          "file": "results/verbs/find_participle.png"
+        },
+        {
+          "title": "Lose (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/lose_infinitive.png"
+        },
+        {
+          "title": "Lost (past)",
+          "kind": "image",
+          "file": "results/verbs/lose_past.png"
+        },
+        {
+          "title": "Lost (past participle)",
+          "kind": "image",
+          "file": "results/verbs/lose_participle.png"
+        },
+        {
+          "title": "Say (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/say_infinitive.png"
+        },
+        {
+          "title": "Said (past)",
+          "kind": "image",
+          "file": "results/verbs/say_past.png"
+        },
+        {
+          "title": "Said (past participle)",
+          "kind": "image",
+          "file": "results/verbs/say_participle.png"
+        },
+        {
+          "title": "Tell (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/tell_infinitive.png"
+        },
+        {
+          "title": "Told (past)",
+          "kind": "image",
+          "file": "results/verbs/tell_past.png"
+        },
+        {
+          "title": "Told (past participle)",
+          "kind": "image",
+          "file": "results/verbs/tell_participle.png"
+        },
+        {
+          "title": "Speak (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/speak_infinitive.png"
+        },
+        {
+          "title": "Spoke (past)",
+          "kind": "image",
+          "file": "results/verbs/speak_past.png"
+        },
+        {
+          "title": "Spoken (past participle)",
+          "kind": "image",
+          "file": "results/verbs/speak_participle.png"
         },
         {
           "title": "Write (infinitive)",
@@ -474,6 +1195,66 @@
           "file": "results/verbs/write_participle.png"
         },
         {
+          "title": "Read (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/read_infinitive.png"
+        },
+        {
+          "title": "Read (past)",
+          "kind": "image",
+          "file": "results/verbs/read_past.png"
+        },
+        {
+          "title": "Read (past participle)",
+          "kind": "image",
+          "file": "results/verbs/read_participle.png"
+        },
+        {
+          "title": "Draw (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/draw_infinitive.png"
+        },
+        {
+          "title": "Drew (past)",
+          "kind": "image",
+          "file": "results/verbs/draw_past.png"
+        },
+        {
+          "title": "Drawn (past participle)",
+          "kind": "image",
+          "file": "results/verbs/draw_participle.png"
+        },
+        {
+          "title": "Meet (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/meet_infinitive.png"
+        },
+        {
+          "title": "Met (past)",
+          "kind": "image",
+          "file": "results/verbs/meet_past.png"
+        },
+        {
+          "title": "Met (past participle)",
+          "kind": "image",
+          "file": "results/verbs/meet_participle.png"
+        },
+        {
+          "title": "Send (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/send_infinitive.png"
+        },
+        {
+          "title": "Sent (past)",
+          "kind": "image",
+          "file": "results/verbs/send_past.png"
+        },
+        {
+          "title": "Sent (past participle)",
+          "kind": "image",
+          "file": "results/verbs/send_participle.png"
+        },
+        {
           "title": "Give (infinitive)",
           "kind": "image",
           "file": "results/verbs/give_infinitive.png"
@@ -487,6 +1268,186 @@
           "title": "Given (past participle)",
           "kind": "image",
           "file": "results/verbs/give_participle.png"
+        },
+        {
+          "title": "Take (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/take_infinitive.png"
+        },
+        {
+          "title": "Took (past)",
+          "kind": "image",
+          "file": "results/verbs/take_past.png"
+        },
+        {
+          "title": "Taken (past participle)",
+          "kind": "image",
+          "file": "results/verbs/take_participle.png"
+        },
+        {
+          "title": "Get (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/get_infinitive.png"
+        },
+        {
+          "title": "Got (past)",
+          "kind": "image",
+          "file": "results/verbs/get_past.png"
+        },
+        {
+          "title": "Gotten (past participle)",
+          "kind": "image",
+          "file": "results/verbs/get_participle.png"
+        },
+        {
+          "title": "Bring (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/bring_infinitive.png"
+        },
+        {
+          "title": "Brought (past)",
+          "kind": "image",
+          "file": "results/verbs/bring_past.png"
+        },
+        {
+          "title": "Brought (past participle)",
+          "kind": "image",
+          "file": "results/verbs/bring_participle.png"
+        },
+        {
+          "title": "Buy (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/buy_infinitive.png"
+        },
+        {
+          "title": "Bought (past)",
+          "kind": "image",
+          "file": "results/verbs/buy_past.png"
+        },
+        {
+          "title": "Bought (past participle)",
+          "kind": "image",
+          "file": "results/verbs/buy_participle.png"
+        },
+        {
+          "title": "Pay (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/pay_infinitive.png"
+        },
+        {
+          "title": "Paid (past)",
+          "kind": "image",
+          "file": "results/verbs/pay_past.png"
+        },
+        {
+          "title": "Paid (past participle)",
+          "kind": "image",
+          "file": "results/verbs/pay_participle.png"
+        },
+        {
+          "title": "Put (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/put_infinitive.png"
+        },
+        {
+          "title": "Put (past)",
+          "kind": "image",
+          "file": "results/verbs/put_past.png"
+        },
+        {
+          "title": "Put (past participle)",
+          "kind": "image",
+          "file": "results/verbs/put_participle.png"
+        },
+        {
+          "title": "Hold (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/hold_infinitive.png"
+        },
+        {
+          "title": "Held (past)",
+          "kind": "image",
+          "file": "results/verbs/hold_past.png"
+        },
+        {
+          "title": "Held (past participle)",
+          "kind": "image",
+          "file": "results/verbs/hold_participle.png"
+        },
+        {
+          "title": "Keep (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/keep_infinitive.png"
+        },
+        {
+          "title": "Kept (past)",
+          "kind": "image",
+          "file": "results/verbs/keep_past.png"
+        },
+        {
+          "title": "Kept (past participle)",
+          "kind": "image",
+          "file": "results/verbs/keep_participle.png"
+        },
+        {
+          "title": "Let (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/let_infinitive.png"
+        },
+        {
+          "title": "Let (past)",
+          "kind": "image",
+          "file": "results/verbs/let_past.png"
+        },
+        {
+          "title": "Let (past participle)",
+          "kind": "image",
+          "file": "results/verbs/let_participle.png"
+        },
+        {
+          "title": "Spend (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/spend_infinitive.png"
+        },
+        {
+          "title": "Spent (past)",
+          "kind": "image",
+          "file": "results/verbs/spend_past.png"
+        },
+        {
+          "title": "Spent (past participle)",
+          "kind": "image",
+          "file": "results/verbs/spend_participle.png"
+        },
+        {
+          "title": "Make (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/make_infinitive.png"
+        },
+        {
+          "title": "Made (past)",
+          "kind": "image",
+          "file": "results/verbs/make_past.png"
+        },
+        {
+          "title": "Made (past participle)",
+          "kind": "image",
+          "file": "results/verbs/make_participle.png"
+        },
+        {
+          "title": "Build (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/build_infinitive.png"
+        },
+        {
+          "title": "Built (past)",
+          "kind": "image",
+          "file": "results/verbs/build_past.png"
+        },
+        {
+          "title": "Built (past participle)",
+          "kind": "image",
+          "file": "results/verbs/build_participle.png"
         },
         {
           "title": "Break (infinitive)",
@@ -504,6 +1465,81 @@
           "file": "results/verbs/break_participle.png"
         },
         {
+          "title": "Cut (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/cut_infinitive.png"
+        },
+        {
+          "title": "Cut (past)",
+          "kind": "image",
+          "file": "results/verbs/cut_past.png"
+        },
+        {
+          "title": "Cut (past participle)",
+          "kind": "image",
+          "file": "results/verbs/cut_participle.png"
+        },
+        {
+          "title": "Grow (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/grow_infinitive.png"
+        },
+        {
+          "title": "Grew (past)",
+          "kind": "image",
+          "file": "results/verbs/grow_past.png"
+        },
+        {
+          "title": "Grown (past participle)",
+          "kind": "image",
+          "file": "results/verbs/grow_participle.png"
+        },
+        {
+          "title": "Wear (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/wear_infinitive.png"
+        },
+        {
+          "title": "Wore (past)",
+          "kind": "image",
+          "file": "results/verbs/wear_past.png"
+        },
+        {
+          "title": "Worn (past participle)",
+          "kind": "image",
+          "file": "results/verbs/wear_participle.png"
+        },
+        {
+          "title": "Have (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/have_infinitive.png"
+        },
+        {
+          "title": "Had (past)",
+          "kind": "image",
+          "file": "results/verbs/have_past.png"
+        },
+        {
+          "title": "Had (past participle)",
+          "kind": "image",
+          "file": "results/verbs/have_participle.png"
+        },
+        {
+          "title": "Do (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/do_infinitive.png"
+        },
+        {
+          "title": "Did (past)",
+          "kind": "image",
+          "file": "results/verbs/do_past.png"
+        },
+        {
+          "title": "Done (past participle)",
+          "kind": "image",
+          "file": "results/verbs/do_participle.png"
+        },
+        {
           "title": "Be (infinitive)",
           "kind": "image",
           "file": "results/verbs/be_infinitive.png"
@@ -517,6 +1553,36 @@
           "title": "Been (past participle)",
           "kind": "image",
           "file": "results/verbs/be_participle.png"
+        },
+        {
+          "title": "Become (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/become_infinitive.png"
+        },
+        {
+          "title": "Became (past)",
+          "kind": "image",
+          "file": "results/verbs/become_past.png"
+        },
+        {
+          "title": "Become (past participle)",
+          "kind": "image",
+          "file": "results/verbs/become_participle.png"
+        },
+        {
+          "title": "Lead (infinitive)",
+          "kind": "image",
+          "file": "results/verbs/lead_infinitive.png"
+        },
+        {
+          "title": "Led (past)",
+          "kind": "image",
+          "file": "results/verbs/lead_past.png"
+        },
+        {
+          "title": "Led (past participle)",
+          "kind": "image",
+          "file": "results/verbs/lead_participle.png"
         }
       ]
     }

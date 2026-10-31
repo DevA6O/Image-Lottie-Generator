@@ -93,7 +93,7 @@ IRREGULAR_VERBS = [
 
 
 # The verbs that are drawn and built right now. Add a key here to build more of the 50.
-BUILT_VERB_KEYS = ("be", "go", "run", "fall", "know", "think", "see", "give", "break", "write")
+BUILT_VERB_KEYS = ("be", "go", "run", "fall", "know", "think", "see", "give", "break", "write", "come", "leave", "rise", "drive", "stand", "sit", "begin", "choose", "feel", "find", "understand", "mean", "hear", "lose", "say", "tell", "speak", "read", "draw", "meet", "send", "take", "get", "bring", "buy", "pay", "put", "hold", "keep", "let", "spend", "make", "build", "cut", "grow", "wear", "have", "do", "become", "lead")
 
 
 def find_built_verbs():
